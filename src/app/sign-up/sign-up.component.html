@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="onSubmit()" [formGroup]='signupForm'>
+            <div class="l2">
+                <div class="form-group">
+                    <h1>Signup Page</h1>
+                    <br>
+                    <label >Username</label>
+                    <input class="form-control" id="upname" formControlName="username" type="text" minlength="4" maxlength="10">
+                    <br>
+                    <label>Password</label>
+                    <input class="form-control" id="uppassword" formControlName="password" type="password" minlength="8" maxlength="12">
+                </div>
+                <br>
+                <button [disabled]="!signupForm.valid" type="submit" class="btn btn-success">Sign Up</button>
+                <br>
+                <h4>Have an Account? <a routerLink="/login">Login</a> </h4>
+            </div>
+            
+        </form>
+    </div>
+</div>

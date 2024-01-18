@@ -1,0 +1,26 @@
+<div class="l2">
+    <div class="row">
+        <div class="col">
+            <form (ngSubmit)="onSubmit()" [formGroup]='loginForm'>
+                <div class="l2">
+                    <div class="form-group">
+                        <h1>Login Page</h1>
+                        <br>
+                        <label >Username</label>
+                        <input class="form-control" id="logname" formControlName="username" type="text" minlength="4" maxlength="10">
+                        <br>
+                        <label >Password</label>
+                        <input class="form-control" id="logpassword" formControlName="password" type="password" minlength="8" maxlength="12">
+                    </div>
+                <br>
+                <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Login</button>
+                <br>
+                <h4>Don't Have an Account? <a routerLink="/sign-up">SignUp</a> </h4>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+   
+

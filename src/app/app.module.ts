@@ -1,0 +1,39 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { TodosComponent } from './todos/todos.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApprainbowDirective } from './todos/apprainbow.directive';
+import { AuthInterceptor } from './shared/auth.interceptor';
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    LoginComponent,
+    TodosComponent,
+    SignUpComponent,
+    ApprainbowDirective
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
+  ],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
