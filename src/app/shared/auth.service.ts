@@ -99,8 +99,6 @@ export class AuthService{
             const expiresIn = localStorageData.expiresIn.getTime() - now.getTime();
 
             if(expiresIn > 0){
-                console.log(expiresIn);
-                
                 this.token = localStorageData.token;
                 this.isAuthenticated = true;
                 this.authenticatedSub.next(true);
