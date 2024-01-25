@@ -50,14 +50,13 @@ export class AuthService{
                     const now = new Date();
                     const expiresDate = new Date(now.getTime() + (res.expiresIn * 1000));
                     this.storeLoginDetails(this.token, expiresDate);
-                    alert(resdata);
+
+                    setTimeout(function() {
+                        alert("Login success!!!");
+                      },500)
                     
                 }
             },err => {
-                // Handle sign-up error
-                this.errorMessageForLogin = "Username or Password is Wrong";
-                // alert(this.errorMessageForLogin);
-                this.errorMessageForLogin= null;
                 setTimeout(() => {
                     let errfromwrong = err.error.message;
                     alert(errfromwrong);
