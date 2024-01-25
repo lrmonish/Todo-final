@@ -41,6 +41,7 @@ export class AuthService{
         this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/login/', authData)
             .subscribe(res => {
                 this.token = res.token;
+                let resdata:any = res;
                 if(this.token){
                     this.authenticatedSub.next(true);
                     this.isAuthenticated = true;
@@ -49,12 +50,21 @@ export class AuthService{
                     const now = new Date();
                     const expiresDate = new Date(now.getTime() + (res.expiresIn * 1000));
                     this.storeLoginDetails(this.token, expiresDate);
+                    alert(resdata);
+                    
                 }
             },err => {
                 // Handle sign-up error
                 this.errorMessageForLogin = "Username or Password is Wrong";
-                alert(this.errorMessageForLogin);
+                // alert(this.errorMessageForLogin);
                 this.errorMessageForLogin= null;
+                setTimeout(() => {
+                    let errfromwrong = err.error.message;
+                    alert(errfromwrong);
+                }, 0);
+               
+                
+               
               })
             }
 
