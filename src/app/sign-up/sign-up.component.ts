@@ -30,8 +30,9 @@ export class SignUpComponent implements OnInit {
     },
     err => {
       // Handle sign-up error
-      this.errorMessage = "Username Already Exists";
-      alert(this.errorMessage);
+      this.errorMessage = err.message;
+      alert(err.error.message);
+     
       this.errorMessage='';
     }
   )
