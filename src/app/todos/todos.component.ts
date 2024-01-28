@@ -48,8 +48,7 @@ export class TodosComponent implements OnInit {
     
     const updatedDescription = this.newTodoDescription;
  
-    console.log(updatedDescription);
- console.log(todo);
+    
  
  
     const updatedTodo = { ...todo, description: updatedDescription };

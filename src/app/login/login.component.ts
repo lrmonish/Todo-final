@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    // let pas:any;
+    // pas = await bcrypt.hash(this.loginForm.value.password, 8);
     this.authService.loginUser(this.loginForm.value.username, this.loginForm.value.password)
   }
    

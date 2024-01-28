@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth.service';
 import { Router } from "@angular/router";
-import { error } from 'console';
+// import { error } from 'console';
+// import * as bcrypt from 'bcryptjs';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -23,7 +25,10 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  onSubmit(){
+  async onSubmit(){
+    //   let pas:any;
+    // pas = await bcrypt.hash(this.signupForm.value.password, 8);
+
     this.authService.signupUser(this.signupForm.value.username, this.signupForm.value.password).subscribe(res => {
       // Handle successful sign-up
       this.router.navigate(['login']);
