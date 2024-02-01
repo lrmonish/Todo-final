@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+ 
+ 
 
   private authenticationSub!: Subscription;
   userAuthenticated = false;
@@ -31,13 +33,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   
   deleteUser(){
-    if (confirm('Are you sure?')) {
-      this.authService.deleteUser()
+   
+    // this.authService.deleteUser()
+
+    // if (confirm('Are you sure?')) {
+     
       
-    } else {
+    // } else {
           
-      console.log('Cancel is clicked.');
-    }
+    //   console.log('Cancel is clicked.');
+    // }
     
   }
 

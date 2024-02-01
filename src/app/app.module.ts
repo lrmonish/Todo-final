@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApprainbowDirective } from './todos/apprainbow.directive';
 import { AuthInterceptor } from './shared/auth.interceptor';
+import { ModalComponent } from './modal/modal.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     TodosComponent,
     SignUpComponent,
     ApprainbowDirective,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

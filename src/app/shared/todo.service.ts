@@ -6,6 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TodoService {
 
+  modal:boolean = false;
+  
   apiUrl = 'http://localhost:3000/api/todos'; 
 
   constructor(private http: HttpClient) {}

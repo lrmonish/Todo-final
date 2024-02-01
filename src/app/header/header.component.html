@@ -12,10 +12,11 @@
         
         <a *ngIf="!userAuthenticated" class="nav-item nav-link" routerLink="login" >Login</a>
         <a *ngIf="!userAuthenticated" class="nav-item nav-link" routerLink="sign-up">Sign-Up</a>
-        <!-- <a *ngIf="userAuthenticated" class="nav-item nav-link" routerLink="data-entry">Main page</a> -->
+        <a *ngIf="userAuthenticated" class="nav-item nav-link" routerLink="todos">Main page</a>
        
-        <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" (click)="deleteUser()">DELETE USER!!!</a>
+        <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="deleteUser" (click)="deleteUser()">Delete User</a>
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" (click)="logout()">LOGOUT</a>
+      
       </div>
     </div>
   

@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject, catchError } from "rxjs";
 import { AuthModel } from "./auth.model";
+import { log } from "console";
 
 @Injectable({providedIn:"root"})
 export class AuthService{
@@ -12,6 +13,7 @@ export class AuthService{
     private isAuthenticated = false;
     private logoutTimer: any;
     errorMessageForLogin:any = null;
+    deleteUserRes:any ="";
 
     getIsAuthenticated(){
         return this.isAuthenticated;
@@ -76,17 +78,25 @@ export class AuthService{
         this.clearLoginDetails();
     }
 
-    deleteUser()
-    {
+    deleteUser(pass: any) {
+        const id = pass;
         
-        // prompt("Are you sure", "Enter your password");
-     this.http.delete('http://localhost:3000/deleteUser').subscribe((data)=>
-     {
-        console.log(data);
+        this.http.delete<any>(`http://localhost:3000/deleteUser/${id}`, {
+          body: pass,
+        })
+        .subscribe((data) => {
+           
+              alert("User deleted successfully:");
+          
+          this.logout();
+        }, (error) => {
+            alert("Invalid Password");
+
         
-     });
-    return this.logout();
-    }
+        });
+      }
+
+
 
     storeLoginDetails(token: string, expirationDate: Date){
         localStorage.setItem('token', token);

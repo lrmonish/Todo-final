@@ -46,6 +46,7 @@ export class TodosComponent implements OnInit {
     });
   }
 
+
   completed(todocom:any)
   {
     this.todoService.completed(todocom).subscribe();
