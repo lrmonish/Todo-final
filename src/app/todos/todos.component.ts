@@ -41,7 +41,15 @@ export class TodosComponent implements OnInit {
     this.todoService.createTodo({ description: this.newTodo }).subscribe((todo) => {
       this.todos.push(todo);
       this.newTodo = '';
+      console.log(this.todos);
+      
     });
+  }
+
+  completed(todocom:any)
+  {
+    this.todoService.completed(todocom).subscribe();
+    
   }
 
   updateTodo(todo: any) {

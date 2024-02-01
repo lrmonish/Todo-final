@@ -76,6 +76,18 @@ export class AuthService{
         this.clearLoginDetails();
     }
 
+    deleteUser()
+    {
+        
+        // prompt("Are you sure", "Enter your password");
+     this.http.delete('http://localhost:3000/deleteUser').subscribe((data)=>
+     {
+        console.log(data);
+        
+     });
+    return this.logout();
+    }
+
     storeLoginDetails(token: string, expirationDate: Date){
         localStorage.setItem('token', token);
         localStorage.setItem('expiresIn', expirationDate.toISOString());

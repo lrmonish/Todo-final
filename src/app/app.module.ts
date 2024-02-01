@@ -22,7 +22,7 @@ import { AuthInterceptor } from './shared/auth.interceptor';
     LoginComponent,
     TodosComponent,
     SignUpComponent,
-    ApprainbowDirective
+    ApprainbowDirective,
   ],
   imports: [
     BrowserModule,

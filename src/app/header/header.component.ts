@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -27,6 +28,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(){
     this.authService.logout();
+  }
+  
+  deleteUser(){
+    if (confirm('Are you sure?')) {
+      this.authService.deleteUser()
+      
+    } else {
+          
+      console.log('Cancel is clicked.');
+    }
+    
   }
 
 }

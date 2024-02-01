@@ -29,4 +29,14 @@ export class TodoService {
   deleteTodo(id: string) {
     return this.http.delete(`${this.apiUrl}/DeletePost/${id}`);
   }
+
+  completed(todocom:any)
+  {
+
+    const id = todocom._id;
+    let completedz = !todocom.completed;
+
+   return this.http.put(`${this.apiUrl}/updateComplete/${id}`,todocom);
+
+  }
 }
