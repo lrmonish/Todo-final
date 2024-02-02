@@ -15,7 +15,8 @@ export class AuthService{
     private logoutTimer: any;
     errorMessageForLogin:any = null;
     deleteUserRes:any ="";
-
+    userData!: object;
+    
      apiUrl:any = environment.apiUrl;
 
     getIsAuthenticated(){
@@ -45,6 +46,12 @@ export class AuthService{
 
         this.http.post<{token: string, expiresIn: number}>(this.apiUrl+'/login/', authData)
             .subscribe(res => {
+                
+                this.userData = res;
+            console.log(this.userData);
+            
+            
+
                 this.token = res.token;
                 let resdata:any = res;
                 if(this.token){

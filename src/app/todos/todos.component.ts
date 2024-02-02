@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodoService } from '../shared/todo.service'
 
 @Component({
@@ -6,7 +6,7 @@ import { TodoService } from '../shared/todo.service'
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css'
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent implements OnInit, OnDestroy {
 
   todos: any[] = [];
   newTodo: string = '';
@@ -14,11 +14,17 @@ export class TodosComponent implements OnInit {
   showUpdate:boolean=false;
   showeditbutton:boolean=false;
   editbutton:boolean=true;
-
+  userobj:string = "";
   constructor(private todoService: TodoService) {}
+  ngOnDestroy(): void {
+   
+    
+  }
 
   ngOnInit() {
     this.getTodos();
+    
+    
   }
   showEditButton()
   {
@@ -33,7 +39,9 @@ export class TodosComponent implements OnInit {
   }
 
   getTodos() {
-    this.todoService.getTodos().subscribe((todos) => this.todos = todos);
+    this.todoService.getTodos().subscribe((todos) => {this.todos = todos, this.userobj = this.todos[0].ownerName}
+    );
+    
   }
 
   createTodo() {
@@ -41,7 +49,7 @@ export class TodosComponent implements OnInit {
     this.todoService.createTodo({ description: this.newTodo }).subscribe((todo) => {
       this.todos.push(todo);
       this.newTodo = '';
-      console.log(this.todos);
+      
       
     });
   }

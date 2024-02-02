@@ -16,6 +16,7 @@
        
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="deleteUser" (click)="deleteUser()">Delete User</a>
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" (click)="logout()">LOGOUT</a>
+        <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" (click)="logout()">Account</a>
       
       </div>
     </div>
