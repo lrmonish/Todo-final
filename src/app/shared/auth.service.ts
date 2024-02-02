@@ -1,9 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { Subject, catchError } from "rxjs";
+import { Subject } from "rxjs";
 import { AuthModel } from "./auth.model";
-import { log } from "console";
+import { environment } from "../../environment/environment";
+
 
 @Injectable({providedIn:"root"})
 export class AuthService{
@@ -14,6 +15,8 @@ export class AuthService{
     private logoutTimer: any;
     errorMessageForLogin:any = null;
     deleteUserRes:any ="";
+
+     apiUrl:any = environment.apiUrl;
 
     getIsAuthenticated(){
         return this.isAuthenticated;
@@ -32,7 +35,7 @@ export class AuthService{
 
         const authData: AuthModel = {username: username, password: password};
         
-        return this.http.post('http://localhost:3000/sign-up/', authData);
+        return this.http.post(this.apiUrl+'/sign-up/', authData);
     }
     
 
@@ -40,7 +43,7 @@ export class AuthService{
     {
         const authData: AuthModel = {username: username, password: password};
 
-        this.http.post<{token: string, expiresIn: number}>('http://localhost:3000/login/', authData)
+        this.http.post<{token: string, expiresIn: number}>(this.apiUrl+'/login/', authData)
             .subscribe(res => {
                 this.token = res.token;
                 let resdata:any = res;
@@ -81,9 +84,7 @@ export class AuthService{
     deleteUser(pass: any) {
         const id = pass;
         
-        this.http.delete<any>(`http://localhost:3000/deleteUser/${id}`, {
-          body: pass,
-        })
+        this.http.delete<any>(`${this.apiUrl}/deleteUser/${id}`, { body: pass })
         .subscribe((data) => {
            
               alert("User deleted successfully:");

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +8,16 @@ import { HttpClient } from '@angular/common/http';
 export class TodoService {
 
   modal:boolean = false;
+   
+   
+  apiUrl = environment.apiUrl; 
   
-  apiUrl = 'http://localhost:3000/api/todos'; 
+  
 
   constructor(private http: HttpClient) {}
 
   getTodos() {
-    return this.http.get<any[]>(this.apiUrl+'/GetPost');
+    return this.http.get<any[]>(`${this.apiUrl}/GetPost`);
   }
 
   getTodo(id: string) {
