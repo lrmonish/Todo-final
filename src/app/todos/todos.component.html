@@ -6,9 +6,9 @@
             <div class="col"></div>
             <div class="col-md-6 bg-white shadow">
   
-              <div class="card bg-dark mt-4">
+              <!-- <div class="card bg-dark mt-4">
                 <h4 class="text-white p-3 pt-2 pb-2">Welcome {{userobj}}</h4>
-            </div>
+            </div> -->
                 <div class="card bg-danger mt-4">
                     <h4 class="text-white p-3 pt-2 pb-2">To Do App</h4>
                 </div>
@@ -26,14 +26,22 @@
                         <input type="text" class="form-control" placeholder="Enter task you need to update " name="task"  [(ngModel)]="newTodoDescription" >
                       </div>
                 </div>
-  
-                <h4 class="text-primary mt-4" style="text-align: center;">Tasks</h4>  
+
+              <!-- <div *ngIf="notaskhead"> -->
+                <h4  class="text-primary mt-4" style="text-align: center;">Tasks</h4>
+              <!-- </div> -->
+
+                <!-- <div  *ngIf="taskhead">
+                  <h4 class="text-primary mt-4" style="text-align: center;">No Tasks</h4>  
+                </div> -->
+                
                 <div style="overflow-y: auto; height: 350px;">
                     <div class="m-3" *ngFor="let todo of todos">
                       <input type="checkbox" [(ngModel)]="todo.completed" (click)="completed(todo)">
                         <div class="p-2 shadow border" id="tasks" >
                             <div class="input-group row ps-3" >
                                 <div apprainbow class="card col-md-10 border-0"> {{todo.description}} </div>
+                                <div *ngIf="userRole == 'admin'" class="card col-md-10 border-0" style="font-size:small;">{{TEST}}{{todo.ownerName}} </div>
                                 <button class="btn btn-outline-primary col me-2" #editm data-bs-toggle="modal" type="button" (click)="showedit(todo)" [hidden]="editbutton">Update</button>
                                 <div class="btn btn-outline-danger col" (click)="deleteTodo(todo)" >X</div>  
                         </div>

@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApprainbowDirective } from './todos/apprainbow.directive';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { ModalComponent } from './modal/modal.component';
+import { AccountsComponent } from './accounts/accounts.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ModalComponent } from './modal/modal.component';
     SignUpComponent,
     ApprainbowDirective,
     ModalComponent,
+    AccountsComponent,
   ],
   imports: [
     BrowserModule,

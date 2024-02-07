@@ -21,20 +21,19 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       'username': new FormControl('', [Validators.required]),
+      'adminkey': new FormControl('',),
       'password': new FormControl('', [Validators.required])
     })
   }
 
   async onSubmit(){
-    //   let pas:any;
-    // pas = await bcrypt.hash(this.signupForm.value.password, 8);
-
-    this.authService.signupUser(this.signupForm.value.username, this.signupForm.value.password).subscribe(res => {
-      // Handle successful sign-up
+   
+    this.authService.signupUser(this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.adminkey).subscribe(res => {
+     
       this.router.navigate(['login']);
     },
     err => {
-      // Handle sign-up error
+      
       this.errorMessage = err.message;
       alert(err.error.message);
      

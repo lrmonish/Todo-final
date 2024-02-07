@@ -15,9 +15,10 @@ export class AuthService{
     private logoutTimer: any;
     errorMessageForLogin:any = null;
     deleteUserRes:any ="";
-    userData!: object;
+    userRole!: string;
     
      apiUrl:any = environment.apiUrl;
+    
 
     getIsAuthenticated(){
         return this.isAuthenticated;
@@ -31,10 +32,10 @@ export class AuthService{
     
     constructor(private http: HttpClient, private router: Router){}
     
-    signupUser(username: string, password: string)
+    signupUser(username: string, password: string, adminkey:string)
     {
-
-        const authData: AuthModel = {username: username, password: password};
+  
+        const authData: AuthModel = {username, password, adminkey};
         
         return this.http.post(this.apiUrl+'/sign-up/', authData);
     }
@@ -42,16 +43,12 @@ export class AuthService{
 
     loginUser(username: string, password: string)
     {
-        const authData: AuthModel = {username: username, password: password};
+        const authData: AuthModel = {username, password, adminkey: ""};
 
-        this.http.post<{token: string, expiresIn: number}>(this.apiUrl+'/login/', authData)
+        this.http.post<{token: string, expiresIn: number, user:string}>(this.apiUrl+'/login/', authData)
             .subscribe(res => {
                 
-                this.userData = res;
-            console.log(this.userData);
-            
-            
-
+                this.userRole = res.user;
                 this.token = res.token;
                 let resdata:any = res;
                 if(this.token){
@@ -145,13 +142,22 @@ export class AuthService{
             }
         }
     }
+
+    getUsers() {
+        return this.http.get(`${this.apiUrl}/getallusers`);
+      }
+
+      deleteUserByAdmin(id:any) {
+        return this.http.delete(`${this.apiUrl}/deleteuserbyadmin/${id}`)
+      }
+
+
+      edituserbyadmin(id: string, user:any)
+    {
+        return this.http.put(`${this.apiUrl}/edituserbyadmin/${id}`, user);
+    }
 }
 
-function tap(arg0: (res: any) => void): import("rxjs").OperatorFunction<any, unknown> {
-    throw new Error("Function not implemented.");
-}
 
 
-function throwError(arg0: () => Error) {
-    throw new Error("Function not implemented.");
-}
+

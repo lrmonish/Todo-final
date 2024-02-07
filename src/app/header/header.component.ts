@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private authenticationSub!: Subscription;
   userAuthenticated = false;
+  userRole!:string;
+  istrue:boolean = true;
 
   constructor(private authService: AuthService) { }
 
@@ -26,6 +28,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => {
       this.userAuthenticated = status;
     })
+
+    this.userRole = this.authService.userRole;
+    console.log(this.userRole);
+    
+    // if(this.userRole == 'admin')
+    // {
+    //     this.istrue = true;
+    // }
+    // else{
+    //   this.istrue=false;
+    // }
   }
 
   logout(){
