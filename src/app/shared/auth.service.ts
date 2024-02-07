@@ -9,14 +9,18 @@ import { environment } from "../../environment/environment";
 @Injectable({providedIn:"root"})
 export class AuthService{
 
-    private token!: string;
+    private token!: any;
     private authenticatedSub = new Subject<boolean>();
     private isAuthenticated = false;
     private logoutTimer: any;
     errorMessageForLogin:any = null;
     deleteUserRes:any ="";
     userRole!: string;
+    currenttoken!:any;
+    role!:any;
     
+
+   
      apiUrl:any = environment.apiUrl;
     
 
@@ -49,16 +53,19 @@ export class AuthService{
             .subscribe(res => {
                 
                 this.userRole = res.user;
+               
+                
                 this.token = res.token;
                 let resdata:any = res;
                 if(this.token){
+                    this.userRole = this.userRole
                     this.authenticatedSub.next(true);
                     this.isAuthenticated = true;
                     this.router.navigate(['todos']);
                     this.logoutTimer = setTimeout(() => {this.logout()}, res.expiresIn * 1000);
                     const now = new Date();
                     const expiresDate = new Date(now.getTime() + (res.expiresIn * 1000));
-                    this.storeLoginDetails(this.token, expiresDate);
+                    this.storeLoginDetails(this.token, expiresDate, this.userRole);
 
                     setTimeout(function() {
                         alert("Login success!!!");
@@ -103,14 +110,17 @@ export class AuthService{
 
 
 
-    storeLoginDetails(token: string, expirationDate: Date){
+    storeLoginDetails(token: string, expirationDate: Date, userRole: string)
+    {
         localStorage.setItem('token', token);
         localStorage.setItem('expiresIn', expirationDate.toISOString());
+        localStorage.setItem('role',userRole)
     }
 
     clearLoginDetails(){
         localStorage.removeItem('token');
         localStorage.removeItem('expiresIn');
+        localStorage.removeItem('role');
     }
 
     getLocalStorageData(){
@@ -156,6 +166,8 @@ export class AuthService{
     {
         return this.http.put(`${this.apiUrl}/edituserbyadmin/${id}`, user);
     }
+
+    
 }
 
 

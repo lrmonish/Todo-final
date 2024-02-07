@@ -1,14 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TodoService } from '../shared/todo.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, OnChanges  {
  
  
 
@@ -16,8 +17,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userAuthenticated = false;
   userRole!:string;
   istrue:boolean = true;
+  authAdmin!:any;
+  
+  
+  
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private todoservice : TodoService) { 
+    setTimeout(()=>{
+      let role = localStorage.getItem('role');
+     
+      if(role == 'admin'){
+        this.authAdmin = true 
+        console.log("if",this.authAdmin);
+        
+      }
+      else{
+        this.authAdmin = false;
+        console.log("else",this.authAdmin);
+        
+      }
+      
+    }); 
+  }
+  ngOnChanges(changes: SimpleChanges): void 
+  {
+  
+  }
 
   ngOnDestroy(): void {
     this.authenticationSub.unsubscribe();
@@ -26,36 +51,40 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userAuthenticated = this.authService.getIsAuthenticated();
     this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => {
-      this.userAuthenticated = status;
+      this.userAuthenticated = status
+      setTimeout(()=>{
+        let role = localStorage.getItem('role');
+       
+        if(role == 'admin'){
+          this.authAdmin = true 
+          console.log("if",this.authAdmin);
+          
+        }
+        else{
+          this.authAdmin = false;
+          console.log("else",this.authAdmin);
+          
+        }
+        
+      }); 
+
+      
     })
 
     this.userRole = this.authService.userRole;
-    console.log(this.userRole);
+   
     
-    // if(this.userRole == 'admin')
-    // {
-    //     this.istrue = true;
-    // }
-    // else{
-    //   this.istrue=false;
-    // }
+   
   }
 
   logout(){
     this.authService.logout();
+    this.authAdmin = false
   }
   
   deleteUser(){
    
-    // this.authService.deleteUser()
-
-    // if (confirm('Are you sure?')) {
-     
-      
-    // } else {
-          
-    //   console.log('Cancel is clicked.');
-    // }
+   
     
   }
 

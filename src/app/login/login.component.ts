@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
       'username': new FormControl('', [Validators.required]),
       'password': new FormControl('', [Validators.required])
     })
+    
   }
 
   onSubmit(){
-    // let pas:any;
-    // pas = await bcrypt.hash(this.loginForm.value.password, 8);
+    
     this.authService.loginUser(this.loginForm.value.username, this.loginForm.value.password)
+    
   }
    
 }

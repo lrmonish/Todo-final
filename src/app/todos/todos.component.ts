@@ -18,10 +18,13 @@ export class TodosComponent implements OnInit, OnDestroy {
   userobj!:any;
   TEST:String="CREATED BY:";
   userRole!:any;
+  authAdmin:any ;
 
 
-  constructor(private todoService: TodoService, private authService : AuthService) {this.userRole = this.authService.userRole;
-    localStorage.setItem('role',this.userRole);}
+  constructor(private todoService: TodoService, private authService : AuthService) {
+    this.userRole = localStorage.getItem('role');
+
+  }
   ngOnDestroy(): void {
    
     
@@ -30,6 +33,7 @@ export class TodosComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getTodos();
     this.userobj=localStorage.getItem('role');
+
     
   }
 
@@ -54,7 +58,7 @@ export class TodosComponent implements OnInit, OnDestroy {
 
     this.todoService.getTodos().subscribe((todos) => {this.todos = todos}
     );
-    
+    console.log("authAdmin", this.authAdmin);
   }
 
   createTodo() {

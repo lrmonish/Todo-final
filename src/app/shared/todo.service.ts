@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,21 @@ export class TodoService {
   
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authservice : AuthService) {}
+   
 
   getTodos() {
+    
+    
     return this.http.get<any[]>(`${this.apiUrl}/GetPost`);
+    
+    
   }
+ 
 
+  
   getTodo(id: string) {
+
     return this.http.get<any>(`${this.apiUrl}/GetPost/${id}`);
   }
 
@@ -44,5 +53,14 @@ export class TodoService {
 
    return this.http.put(`${this.apiUrl}/updateComplete/${id}`,todocom);
 
+  }
+
+  editAll(user:any)
+  {
+     let userId = user._id
+     let usname = user.username;
+     
+     
+     return this.http.put(`${this.apiUrl}/editAll`,{userId, usname});
   }
 }

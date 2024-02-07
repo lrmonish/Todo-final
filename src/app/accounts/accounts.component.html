@@ -1,5 +1,9 @@
 <div class="container">
-    <ul class="list-group">
+  <br>
+  <button class="btn btn-sm btn-danger" routerLink="/todos" >Go to Todos</button>
+  <br>
+  <br>
+      <ul class="list-group">
       <li *ngFor="let user of users; let i = index" class="list-group-item">
         <span class="badge bg-primary me-2">{{ i + 1 }}</span>
         <span>ID: {{ user._id }}</span><br>
@@ -12,12 +16,12 @@
 
         <div style="margin-left: 35%;" class="btn btn-outline-danger col" (click)="showEditButton()" >Username Change</div>
         <div class="input-group p-4" *ngIf="showeditbutton">
-            <input type="text" class="form-control" placeholder="Enter task you need to update " name="task"  [(ngModel)]="newTodoDescription" >
+            <input type="text" class="form-control" placeholder="Enter New username " name="task"  [(ngModel)]="newTodoDescription" >
           </div>
   
         <div class="d-flex gap-2 mt-2">
             
-          <button class="btn btn-sm btn-danger" (click)="deleteUserByAdmin(user)">Delete</button>
+          <button class="btn btn-sm btn-danger"  (click)="deleteUserByAdmin(user)">Delete</button>
           <button class="btn btn-sm btn-warning" #editm data-bs-toggle="modal" type="button" (click)="showedit(user)" [hidden]="editbutton">Update</button>
         </div>
       </li>

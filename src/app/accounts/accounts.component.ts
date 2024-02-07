@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
+import { TodoService } from '../shared/todo.service';
 
 @Component({
   selector: 'app-accounts',
@@ -14,7 +15,7 @@ export class AccountsComponent implements OnInit {
   showeditbutton:boolean=false;
   editbutton:boolean=true;
 
-constructor(private http :HttpClient, private authService : AuthService){}
+constructor(private http :HttpClient, private authService : AuthService, private todoservice : TodoService){}
   ngOnInit(): void {
    this.getUsers();
    
@@ -22,6 +23,7 @@ constructor(private http :HttpClient, private authService : AuthService){}
 
   showedit(x:any){
     this.edituserbyadmin(x);
+    this.editall(x)
     this.showUpdate=true;
     }
 
@@ -79,7 +81,14 @@ getUsers() {
     );
     }
 
+    editall(user:any)
+    {
+     
+     return this.todoservice.editAll(user).subscribe();
+     
+       
 
+    }
 
 
 
