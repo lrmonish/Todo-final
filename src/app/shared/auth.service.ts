@@ -28,9 +28,14 @@ export class AuthService{
     usernameLogggedin!:string;
     userrolename!:string;
     
-
-   
      apiUrl:any = environment.apiUrl;
+
+
+     constructor(private http: HttpClient, private router: Router){}
+
+
+
+
     
      getIsAdmin()
      {
@@ -42,19 +47,23 @@ export class AuthService{
       return this.AdminSub.asObservable();
      }
      
-    getIsAuthenticated(){
+    getIsAuthenticated()
+    {
         return this.isAuthenticated;
     }
-    getAuthenticatedSub(){
+
+    getAuthenticatedSub()
+    {
         return this.authenticatedSub.asObservable();
     }
 
 
-    getToken(){
+    getToken()
+    {
         return this.token;
     }
     
-    constructor(private http: HttpClient, private router: Router){}
+   
     
     signupUser(username: string, password: string, adminkey:string)
     {
@@ -64,6 +73,8 @@ export class AuthService{
         return this.http.post(this.apiUrl+'/sign-up/', authData);
     }
 
+
+    
     updateUser(user:any)
     {
     
@@ -117,20 +128,38 @@ export class AuthService{
                 
                
               })
-            }
-
-    logout(){
-        this.token = '';
-        this.isAuthenticated = false;
-        this.isauthAdmin=false;
-        this.authenticatedSub.next(false);
-        this.AdminSub.next(false);
-        this.router.navigate(['/']);
-        clearTimeout(this.logoutTimer);
-        this.clearLoginDetails();
     }
 
-    deleteUser(pass: any) {
+
+
+    getUsers() 
+    {
+        return this.http.get(`${this.apiUrl}/getallusers`);
+    }
+
+
+    getUsersForAdmin()
+    {
+        
+        return this.http.get(`${this.apiUrl}/getallUsersForAdmin`);
+    }
+
+
+
+    deleteUserByAdmin(id:any) 
+    {
+        return this.http.delete(`${this.apiUrl}/deleteuserbyadmin/${id}`)
+    }
+
+
+      edituserbyadmin(id: string, user:any)
+    {
+        return this.http.put(`${this.apiUrl}/edituserbyadmin/${id}`, user);
+    }
+
+
+    deleteUser(pass: any) 
+    {
         const id = pass;
         
         this.http.delete<any>(`${this.apiUrl}/deleteUser/${id}`, { body: pass })
@@ -148,6 +177,10 @@ export class AuthService{
 
 
 
+
+
+
+
     storeLoginDetails(token: string, expirationDate: Date, userRole: boolean, usernameLogggedin:string,userrolename:string)
     {
         localStorage.setItem('username',usernameLogggedin)
@@ -160,7 +193,8 @@ export class AuthService{
         
     }
 
-    clearLoginDetails(){
+    clearLoginDetails()
+    {
         localStorage.removeItem('token');
         localStorage.removeItem('expiresIn');
         localStorage.removeItem('isAdmin');
@@ -169,7 +203,8 @@ export class AuthService{
         localStorage.removeItem('authAdmin');
     }
 
-    getLocalStorageData(){
+    getLocalStorageData()
+    {
         const token = localStorage.getItem('token');
         
         const expiresIn = localStorage.getItem('expiresIn');
@@ -183,7 +218,8 @@ export class AuthService{
         }
     }
 
-    authenticateFromLocalStorage(){
+    authenticateFromLocalStorage()
+    {
         const localStorageData = this.getLocalStorageData();
         
         if(localStorageData){
@@ -202,29 +238,21 @@ export class AuthService{
     
     
 
-    getUsers() {
-        return this.http.get(`${this.apiUrl}/getallusers`);
-      }
-
-
-    getUsersForAdmin()
-      {
-        
-        return this.http.get(`${this.apiUrl}/getallUsersForAdmin`);
-      }
+    
 
 
 
-      deleteUserByAdmin(id:any) {
-        return this.http.delete(`${this.apiUrl}/deleteuserbyadmin/${id}`)
-      }
-
-
-      edituserbyadmin(id: string, user:any)
+    logout()
     {
-        return this.http.put(`${this.apiUrl}/edituserbyadmin/${id}`, user);
+        this.token = '';
+        this.isAuthenticated = false;
+        this.isauthAdmin=false;
+        this.authenticatedSub.next(false);
+        this.AdminSub.next(false);
+        this.router.navigate(['/']);
+        clearTimeout(this.logoutTimer);
+        this.clearLoginDetails();
     }
-
     
 }
 

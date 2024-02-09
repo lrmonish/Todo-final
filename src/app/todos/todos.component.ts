@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodoService } from '../shared/todo.service'
 import { AuthService } from '../shared/auth.service';
+import { RolepermissionService } from '../shared/rolepermission.service';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css'
 })
-export class TodosComponent implements OnInit, OnDestroy {
+export class TodosComponent implements OnInit {
 
   todos: any[] = [];
   newTodo: string = '';
@@ -15,25 +16,21 @@ export class TodosComponent implements OnInit, OnDestroy {
   showUpdate:boolean=false;
   showeditbutton:boolean=false;
   editbutton:boolean=true;
-  userobj!:any;
+  
   TEST:String="CREATED BY:";
-  userRole!:any;
-  authAdmin:any ;
-  isUser:any = true;
+
+  userRole = this.rolePermission.getRole();
+  todoCheckBox=this.rolePermission.getCheckbox();
 
 
-  constructor(private todoService: TodoService, private authService : AuthService) {
-    this.userRole = localStorage.getItem('role');
+  constructor(private todoService: TodoService, private authService : AuthService, private rolePermission: RolepermissionService) {}
 
-  }
-  ngOnDestroy(): void {
-   
-    
-  }
+
+  
+  
 
   ngOnInit() {
     this.getTodos();
-    this.userobj=localStorage.getItem('role');
 
     
   }
@@ -55,21 +52,15 @@ export class TodosComponent implements OnInit, OnDestroy {
   this.showUpdate=true;
   }
 
-  getTodos() {
+  getTodos() 
+  {
 
-    this.todoService.getTodos().subscribe((todos) => {this.todos = todos}
-    );
+    this.todoService.getTodos().subscribe((todos) => {this.todos = todos});
 
-    const auth = localStorage.getItem('role');
-
-    if(auth === 'user')
-    {
-       this.isUser = false
-    }
-    
   }
 
-  createTodo() {
+  createTodo() 
+  {
     
     
     if (!this.newTodo) return;
@@ -88,13 +79,9 @@ export class TodosComponent implements OnInit, OnDestroy {
     
   }
 
-  updateTodo(todo: any) {
-    
+  updateTodo(todo: any) 
+  {
     const updatedDescription = this.newTodoDescription;
- 
-    
- 
- 
     const updatedTodo = { ...todo, description: updatedDescription };
     
     this.todoService.updateTodo(todo._id, updatedTodo).subscribe(() => {
@@ -106,7 +93,8 @@ export class TodosComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteTodo(todo: any) {
+  deleteTodo(todo: any)
+  {
     this.todoService.deleteTodo(todo._id).subscribe(() => {
       this.todos = this.todos.filter((t) => t._id !== todo._id);
     });

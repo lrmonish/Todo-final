@@ -33,7 +33,7 @@
                 
                 <div style="overflow-y: auto; height: 350px;">
                     <div class="m-3" *ngFor="let todo of todos">
-                      <div *ngIf="isUser"> 
+                      <div *ngIf="todoCheckBox"> 
                         <input type="checkbox" [(ngModel)]="todo.completed" (click)="completed(todo)">
                       </div>
                       
