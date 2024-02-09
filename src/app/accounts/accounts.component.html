@@ -7,24 +7,47 @@
       <li *ngFor="let user of users; let i = index" class="list-group-item">
         <span class="badge bg-primary me-2">{{ i + 1 }}</span>
         <span>ID: {{ user._id }}</span><br>
-  
+        <span>isAdmin: {{user.isAdmin}}</span><br>
         <span>Username: {{ user.username }}</span><br>
   
         <span> hashed password: {{ user.password }}</span><br>
 
         <span>createdAt: {{ user.createdAt }}</span><br>
 
-        <div style="margin-left: 35%;" class="btn btn-outline-danger col" (click)="showEditButton()" >Username Change</div>
+        
+  
+
+        
         <div class="input-group p-4" *ngIf="showeditbutton">
             <input type="text" class="form-control" placeholder="Enter New username " name="task"  [(ngModel)]="newTodoDescription" >
           </div>
   
         <div class="d-flex gap-2 mt-2">
-            
-          <button class="btn btn-sm btn-danger"  (click)="deleteUserByAdmin(user)">Delete</button>
+            <div *ngIf="isSuperAdmin">
+              <div  class="btn btn-outline-warning col" (click)="showEditButton()" >Username Change</div>
+              <br>
+              <br>
+              <br>
+              <button class="btn btn-sm btn-danger"  (click)="deleteUserByAdmin(user)">Delete</button>
+            </div>
+        
+          <br>
+<div *ngIf="isSuperAdmin">
+  <p>Make admin</p>
+  <label class="switch">
+  <input type="checkbox" [(ngModel)]="user.isAdmin" (click)="changeAcess(user)">
+  <span class="slider round"></span>
+  </label>
+
+</div>
+         
+    
+
           <button class="btn btn-sm btn-warning" #editm data-bs-toggle="modal" type="button" (click)="showedit(user)" [hidden]="editbutton">Update</button>
         </div>
       </li>
+      <br>
+      <br>
     </ul>
   </div>
   

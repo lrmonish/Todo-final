@@ -14,7 +14,7 @@ import { ApprainbowDirective } from './todos/apprainbow.directive';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { ModalComponent } from './modal/modal.component';
 import { AccountsComponent } from './accounts/accounts.component';
-
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,9 @@ import { AccountsComponent } from './accounts/accounts.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatSliderModule
+    
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

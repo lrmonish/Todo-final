@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RouteGuard } from './shared/route-guard';
 import { ModalComponent } from './modal/modal.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { AdminRoleGuard } from './shared/adminrole-guard';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -14,7 +15,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'sign-up', component:SignUpComponent},
   {path: 'deleteUser', component:ModalComponent, canActivate:[RouteGuard]},
-  {path: 'accounts', component:AccountsComponent, canActivate:[RouteGuard]}
+  {path: 'accounts',component: AccountsComponent,canActivate: [AdminRoleGuard]}
 ];
 
 @NgModule({

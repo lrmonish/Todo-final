@@ -33,7 +33,10 @@
                 
                 <div style="overflow-y: auto; height: 350px;">
                     <div class="m-3" *ngFor="let todo of todos">
-                      <input type="checkbox" [(ngModel)]="todo.completed" (click)="completed(todo)">
+                      <div *ngIf="isUser"> 
+                        <input type="checkbox" [(ngModel)]="todo.completed" (click)="completed(todo)">
+                      </div>
+                      
                         <div class="p-2 shadow border" id="tasks" >
                             <div class="input-group row ps-3" >
                                 <div apprainbow class="card col-md-10 border-0"> {{todo.description}} </div>

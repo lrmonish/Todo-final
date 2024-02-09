@@ -10,16 +10,21 @@ import { TodoService } from '../shared/todo.service';
 })
 export class AccountsComponent implements OnInit {
   users: any[] = [];
+  // usersForAdmin: any[] = [];
   newTodoDescription!:any;
   showUpdate:boolean=false;
   showeditbutton:boolean=false;
   editbutton:boolean=true;
+  isSuperAdmin:boolean = false;
+
 
 constructor(private http :HttpClient, private authService : AuthService, private todoservice : TodoService){}
   ngOnInit(): void {
    this.getUsers();
    
   }
+
+  isAdmin = false;
 
   showedit(x:any){
     this.edituserbyadmin(x);
@@ -34,17 +39,43 @@ constructor(private http :HttpClient, private authService : AuthService, private
     this.newTodoDescription = "";
   }
 
+  changeAcess(user:any)
+  {
+
+    this.authService.updateUser(user).subscribe();
+
+  }
+
 getUsers() {
   
       this.authService.getUsers().subscribe((data)=>
       {
-        // console.log(data);
         
         this.users = data as any[];
+        let currentUser = localStorage.getItem('username');
+        if(currentUser === 'admin')
+        {
+         ;
+this.isSuperAdmin = true;
+        }
+        
+        let filteredArray = this.users.filter(obj => obj.username !== 'admin' && obj.username !== currentUser );
+        
+        
+       
+this.users=filteredArray
+        
+        
         
       })
       
       
+    }
+
+getAllUsers() 
+    {
+
+this.authService.getUsersForAdmin().subscribe()
     }
 
     deleteUserByAdmin(user:any) {

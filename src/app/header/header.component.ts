@@ -1,7 +1,6 @@
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from '../shared/todo.service';
 
 @Component({
@@ -9,67 +8,59 @@ import { TodoService } from '../shared/todo.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy, OnChanges  {
+export class HeaderComponent implements OnInit, OnDestroy  {
  
  
 
   private authenticationSub!: Subscription;
+  private authAdminSub!:Subscription;
+
   userAuthenticated = false;
-  userRole!:string;
+  authAdmin = false;
+
+  userRole!:boolean;
   istrue:boolean = true;
-  authAdmin!:any;
+  
+   role!:any;
   
   
   
 
-  constructor(private authService: AuthService, private todoservice : TodoService) { 
-    setTimeout(()=>{
-      let role = localStorage.getItem('role');
-     
-      if(role == 'admin'){
-        this.authAdmin = true 
-        console.log("if",this.authAdmin);
-        
-      }
-      else{
-        this.authAdmin = false;
-        console.log("else",this.authAdmin);
-        
-      }
-      
-    }); 
-  }
-  ngOnChanges(changes: SimpleChanges): void 
-  {
+  constructor(private authService: AuthService, private todoservice : TodoService) {} 
   
-  }
-
   ngOnDestroy(): void {
     this.authenticationSub.unsubscribe();
+    this.authAdminSub.unsubscribe();
+    
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    
     this.userAuthenticated = this.authService.getIsAuthenticated();
-    this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => {
-      this.userAuthenticated = status
-      setTimeout(()=>{
-        let role = localStorage.getItem('role');
-       
-        if(role == 'admin'){
-          this.authAdmin = true 
-          console.log("if",this.authAdmin);
-          
-        }
-        else{
-          this.authAdmin = false;
-          console.log("else",this.authAdmin);
-          
-        }
-        
-      }); 
+   
 
-      
+    this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => 
+      {
+      this.userAuthenticated = status
     })
+    
+    this.authAdmin = this.authService.getIsAdmin();
+
+     this.authAdminSub = this.authService.getAdminSub().subscribe(status=>{
+      // console.log("status",status);
+        localStorage.setItem('authAdmin',`${status}`);
+      this.authAdmin = status
+     })
+
+     if(localStorage.getItem('authAdmin')==='true')
+     {
+      this.authAdmin = true;
+     }
+     else
+     {
+      this.authAdmin= false;
+     }
+     
 
     this.userRole = this.authService.userRole;
    
@@ -78,8 +69,8 @@ export class HeaderComponent implements OnInit, OnDestroy, OnChanges  {
   }
 
   logout(){
+    
     this.authService.logout();
-    this.authAdmin = false
   }
   
   deleteUser(){

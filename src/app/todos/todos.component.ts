@@ -19,6 +19,7 @@ export class TodosComponent implements OnInit, OnDestroy {
   TEST:String="CREATED BY:";
   userRole!:any;
   authAdmin:any ;
+  isUser:any = true;
 
 
   constructor(private todoService: TodoService, private authService : AuthService) {
@@ -45,7 +46,7 @@ export class TodosComponent implements OnInit, OnDestroy {
     this.showeditbutton=!this.showeditbutton;
     this.editbutton = !this.editbutton;
     this.newTodoDescription = "";
-    console.log(this.newTodoDescription);
+   
     
   }
   
@@ -58,7 +59,14 @@ export class TodosComponent implements OnInit, OnDestroy {
 
     this.todoService.getTodos().subscribe((todos) => {this.todos = todos}
     );
-    console.log("authAdmin", this.authAdmin);
+
+    const auth = localStorage.getItem('role');
+
+    if(auth === 'user')
+    {
+       this.isUser = false
+    }
+    
   }
 
   createTodo() {
