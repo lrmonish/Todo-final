@@ -2,15 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TodoService } from '../shared/todo.service'
 import { AuthService } from '../shared/auth.service';
 import { RolepermissionService } from '../shared/rolepermission.service';
+import { map, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css'
 })
-export class TodosComponent {
+export class TodosComponent implements OnDestroy {
 
   todos: any[] = [];
+  data : any[] = [];
   newTodo: string = '';
   newTodoDescription: any ;
   showUpdate:boolean=false;
@@ -24,6 +26,12 @@ export class TodosComponent {
   
   TEST:String="CREATED BY:";
   constructor(private todoService: TodoService, private authService : AuthService, private rolePermission: RolepermissionService) {}
+  
+  
+  ngOnDestroy() 
+  {
+    // console.log(this.data);
+  }
   
   
 
@@ -40,9 +48,12 @@ export class TodosComponent {
   todoCheckBoxbool:boolean = this.rolePermission.completedPermission();
 
   ngOnInit() {
-
+    this.getTodos() ;
+   
+    
 
   }
+
 
   
 

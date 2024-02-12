@@ -148,7 +148,7 @@ createTodobool()
 
   if(this.roleFromLocal === 'user')
   {
-    return false;
+    return true;
   } 
   else {
     
@@ -162,7 +162,7 @@ updateTodobool()
 
   if(this.roleFromLocal === 'user')
   {
-    return false;
+    return true;
   } 
   else {
     
@@ -176,7 +176,7 @@ deleteTodobool()
 
   if(this.roleFromLocal === 'user')
   {
-    return false;
+    return true;
   } 
   else {
     
