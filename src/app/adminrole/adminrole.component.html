@@ -4,25 +4,25 @@
     <br>
     <br>
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Create Todo Access</label>
+         <input class="form-check-input" [(ngModel)]="this.adminPermissions[0].create" (click)="userCP()" type="checkbox">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Create Todo Access</label> 
     </div>
     <br>
   
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <input class="form-check-input" [(ngModel)]="this.adminPermissions[0].update" (click)="userUP()" type="checkbox" >
         <label class="form-check-label" for="flexSwitchCheckDefault">update Todo Access</label>
     </div>
     <br>
     
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <input class="form-check-input" [(ngModel)]="this.adminPermissions[0].delete" (click)="userDP()" type="checkbox" >
         <label class="form-check-label" for="flexSwitchCheckDefault">Delete Todo Access</label>
     </div>
     <br>
     
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <input class="form-check-input" [(ngModel)]="this.adminPermissions[0].completed" (click)="userBP()" type="checkbox" >
         <label class="form-check-label" for="flexSwitchCheckDefault">Todo Mark to Home Page</label>
     </div>
     <br>

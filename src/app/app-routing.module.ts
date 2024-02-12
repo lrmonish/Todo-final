@@ -18,12 +18,12 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'sign-up', component:SignUpComponent},
   {path: 'deleteUser', component:ModalComponent, canActivate:[RouteGuard]},
-  {path: 'accounts',component: AccountsComponent,canActivate: [AdminRoleGuard]},
+  {path: 'accounts',component: AccountsComponent,canActivate: [RouteGuard]},
   {
     path: 'role',
     component: RoleComponent,
     children: [
-      // Default route to redirect to `adminrole` for enhanced user experience
+     
       { path: '', redirectTo: 'adminrole', pathMatch: 'full' },
       {
         path: 'adminrole',

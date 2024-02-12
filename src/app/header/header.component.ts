@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/auth.service';
 import { TodoService } from '../shared/todo.service';
@@ -8,12 +8,12 @@ import { TodoService } from '../shared/todo.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy  {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked  {
  
  
 
-  private authenticationSub!: Subscription;
-  private authAdminSub!:Subscription;
+  // private authenticationSub!: Subscription;
+  // private authAdminSub!:Subscription;
 
   userAuthenticated = false;
   authAdmin = false;
@@ -27,43 +27,60 @@ export class HeaderComponent implements OnInit, OnDestroy  {
   
 
   constructor(private authService: AuthService, private todoservice : TodoService) {} 
+
+  ngAfterViewChecked() 
+  {
+
+    
+      this.userAuthenticated = this.authService.getIsAuthenticated();
+    
+      this.authAdmin = this.authService.getIsAdmin();
+      // this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => 
+      //   {
+      //   this.userAuthenticated = status
+      // })
   
-  ngOnDestroy(): void {
-    this.authenticationSub.unsubscribe();
-    this.authAdminSub.unsubscribe();
+
+      // this.authAdmin = this.authService.getIsAdmin();
+  
+      //  this.authAdminSub = this.authService.getAdminSub().subscribe(status=>{
+        
+          // localStorage.setItem('authAdmin',`${status}`);
+        // this.authAdmin = status
+      //  })
+  let  TTT = this.authService.getIsAdmin();
+  // sessionStorage.setItem('authAdmin', `${TTT}`);
+
+       if(TTT)
+       {
+        this.authAdmin = true;
+       }
+       else
+       {
+        this.authAdmin= false;
+       }
+
+   
+
+    this.userRole = this.authService.userRole;
+  }
+  
+  ngOnDestroy() {
+    // this.authenticationSub.unsubscribe();
+    // this.authAdminSub.unsubscribe();
     
   }
 
+
+  ngAfterViewInit()
+  {
+
+    
+   
+    
+  }
   ngOnInit() {
     
-    this.userAuthenticated = this.authService.getIsAuthenticated();
-   
-
-    this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => 
-      {
-      this.userAuthenticated = status
-    })
-    
-    this.authAdmin = this.authService.getIsAdmin();
-
-     this.authAdminSub = this.authService.getAdminSub().subscribe(status=>{
-      // console.log("status",status);
-        localStorage.setItem('authAdmin',`${status}`);
-      this.authAdmin = status
-     })
-
-     if(localStorage.getItem('authAdmin')==='true')
-     {
-      this.authAdmin = true;
-     }
-     else
-     {
-      this.authAdmin= false;
-     }
-     
-
-    this.userRole = this.authService.userRole;
-   
     
    
   }
@@ -73,10 +90,6 @@ export class HeaderComponent implements OnInit, OnDestroy  {
     this.authService.logout();
   }
   
-  deleteUser(){
-   
-   
-    
-  }
+ 
 
 }

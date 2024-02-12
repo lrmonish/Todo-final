@@ -98,13 +98,13 @@ export class AuthService{
                 
                 if(this.userrolename === 'admin')
                 {
-                    this.AdminSub.next(true);
+                    // this.AdminSub.next(true);
                     this.isauthAdmin = true;    
                 }
                 
                 if(this.token){
                     this.userRole = this.userRole
-                    this.authenticatedSub.next(true);
+                    // this.authenticatedSub.next(true);
                     
                     this.isAuthenticated = true;
                     this.router.navigate(['todos']);
@@ -200,7 +200,7 @@ export class AuthService{
         localStorage.removeItem('isAdmin');
         localStorage.removeItem('username');
         localStorage.removeItem('role')
-        localStorage.removeItem('authAdmin');
+        sessionStorage.removeItem('authAdmin');
     }
 
     getLocalStorageData()
@@ -229,8 +229,8 @@ export class AuthService{
             if(expiresIn > 0){
                 this.token = localStorageData.token;
                 this.isAuthenticated = true;
-                this.authenticatedSub.next(true);
-                // this.logoutTimer.setTimeout(expiresIn / 1000);
+                // this.authenticatedSub.next(true);
+                
             }
         }
     }
@@ -247,8 +247,8 @@ export class AuthService{
         this.token = '';
         this.isAuthenticated = false;
         this.isauthAdmin=false;
-        this.authenticatedSub.next(false);
-        this.AdminSub.next(false);
+        // this.authenticatedSub.next(false);
+        // this.AdminSub.next(false);
         this.router.navigate(['/']);
         clearTimeout(this.logoutTimer);
         this.clearLoginDetails();

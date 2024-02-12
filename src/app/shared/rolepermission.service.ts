@@ -1,12 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environment/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolepermissionService {
 
-  constructor() { }
-  todoCheckBox!:boolean;
+  apiUrl = environment.apiUrl; 
+
+  constructor(private http: HttpClient) { }
   roleFromLocal!:any;
    
 
@@ -16,21 +19,50 @@ getRole()
     return this.roleFromLocal;
 }
 
-
-
-
-createPermission()
+getUserP()
 {
+  return this.http.get<any[]>(`${this.apiUrl}/GetP`);
+}
+
+
+
+userCP(create:boolean)
+{
+ 
+  
+
+return this.http.put(`${this.apiUrl}/updateUserCreateP`,{boolval:create}).subscribe();
 
 }
-updatePermission()
+
+userUP(update:boolean)
 {
   
+return this.http.put(`${this.apiUrl}/updateUserupdateP`,{boolval:update}).subscribe();
+
 }
-deletePermission()
+
+userDP(deleteP:boolean)
 {
   
+return this.http.put(`${this.apiUrl}/updateUserDeleteP`,{boolval:deleteP}).subscribe();
+
 }
+
+userBP(box:boolean)
+{
+  
+return this.http.put(`${this.apiUrl}/updateUserCompletedP`,{boolval:box}).subscribe();
+
+}
+
+
+
+
+
+
+
+
 completedPermission()
 {
   if(this.roleFromLocal === 'user') return false;

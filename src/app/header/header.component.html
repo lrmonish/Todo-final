@@ -13,13 +13,13 @@
         
         <a *ngIf="!userAuthenticated" class="nav-item nav-link" routerLink="login" >Login</a>
         <a *ngIf="!userAuthenticated" class="nav-item nav-link" routerLink="sign-up">Sign-Up</a>
-        <!-- <a *ngIf="!userAuthenticated" class="nav-item nav-link" routerLink="todos">Main page</a> -->
+        
        
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="todos">Todo</a>
 
-        <a *ngIf="userAuthenticated " class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="deleteUser" >Delete User</a>
-        <a *ngIf="authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="role">Role Manager</a>
-        <a *ngIf="authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="accounts">User Manager</a>
+        <a *ngIf="userAuthenticated " class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="/deleteUser" >Delete User</a>
+        <a *ngIf="userAuthenticated && authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="/role">Role Manager</a>
+        <a *ngIf="userAuthenticated && authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="/accounts">User Manager</a>
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" (click)="logout()">LOGOUT</a>
       
       </div>

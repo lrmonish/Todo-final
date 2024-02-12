@@ -12,7 +12,7 @@
                 </div>
   
                 <div class="shadow">
-                    <div *ngIf="createTodo" class="input-group p-4">
+                    <div *ngIf="createTodobool" class="input-group p-4">
                         <input type="text" class="form-control" placeholder="Enter task " name="task"  [(ngModel)]="newTodo" >
                         <button class="btn btn-outline-success" type="button" (click)="createTodo()" >ADD</button>
                       </div>

@@ -19,6 +19,7 @@ import { RoleComponent } from './role/role.component';
 import { UsersroleComponent } from './usersrole/usersrole.component';
 import { AdminroleComponent } from './adminrole/adminrole.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import { AdminroleComponent } from './adminrole/adminrole.component';
     AccountsComponent,
     RoleComponent,
     UsersroleComponent,
-    AdminroleComponent,
+    AdminroleComponent
   ],
   imports: [
     BrowserModule,
