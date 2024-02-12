@@ -1,0 +1,31 @@
+
+  <div class="container">
+    <h1>User Role</h1>
+    <br>
+    <br>
+    <div class="form-check form-switch">
+        <input class="form-check-input" [(ngModel)]="createTodo" (click)="onclick()" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Create Todo Access</label>
+    </div>
+    <br>
+  
+    <div class="form-check form-switch">
+        <input class="form-check-input" [(ngModel)]="updateTodo" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">update Todo Access</label>
+    </div>
+    <br>
+    
+    <div class="form-check form-switch">
+        <input class="form-check-input" [(ngModel)]="deleteTodo" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Delete Todo Access</label>
+    </div>
+    <br>
+    
+    <div class="form-check form-switch">
+        <input class="form-check-input" [(ngModel)]="markTodo" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Todo Mark to Home Page</label>
+    </div>
+    <br>
+    
+  </div>
+

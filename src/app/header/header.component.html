@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<nav style="z-index: 999; " class="navbar navbar-expand-lg navbar-light bg-light">
 
     <a class="navbar-brand">TODO APP</a>
     
@@ -15,12 +16,15 @@
         <!-- <a *ngIf="!userAuthenticated" class="nav-item nav-link" routerLink="todos">Main page</a> -->
        
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="todos">Todo</a>
-        <a *ngIf="authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="accounts">User Manager</a>
+
         <a *ngIf="userAuthenticated " class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="deleteUser" >Delete User</a>
+        <a *ngIf="authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="role">Role Manager</a>
+        <a *ngIf="authAdmin" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" routerLink="accounts">User Manager</a>
         <a *ngIf="userAuthenticated" class="nav-item nav-link" style="margin: left 200px; cursor: pointer;" (click)="logout()">LOGOUT</a>
-        
       
       </div>
     </div>
   
   </nav>
+
+

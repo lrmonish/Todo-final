@@ -8,6 +8,9 @@ import { RouteGuard } from './shared/route-guard';
 import { ModalComponent } from './modal/modal.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { AdminRoleGuard } from './shared/adminrole-guard';
+import { RoleComponent } from './role/role.component';
+import { AdminroleComponent } from './adminrole/adminrole.component';
+import { UsersroleComponent } from './usersrole/usersrole.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -15,8 +18,32 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'sign-up', component:SignUpComponent},
   {path: 'deleteUser', component:ModalComponent, canActivate:[RouteGuard]},
-  {path: 'accounts',component: AccountsComponent,canActivate: [AdminRoleGuard]}
+  {path: 'accounts',component: AccountsComponent,canActivate: [AdminRoleGuard]},
+  {
+    path: 'role',
+    component: RoleComponent,
+    children: [
+      // Default route to redirect to `adminrole` for enhanced user experience
+      { path: '', redirectTo: 'adminrole', pathMatch: 'full' },
+      {
+        path: 'adminrole',
+        component: AdminroleComponent,
+        canActivate: [RouteGuard],
+        data: { roles: ['admin'] },
+
+      },
+      {
+        path: 'userrole',
+        component: UsersroleComponent,     
+        canActivate: [RouteGuard],
+        data: { roles: ['user'] },
+      }
+    ]
+  }
 ];
+
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

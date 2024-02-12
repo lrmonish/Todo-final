@@ -10,16 +10,29 @@ export class RolepermissionService {
   roleFromLocal!:any;
    
 
-   getRole()
-   {
+getRole()
+{
      this.roleFromLocal = localStorage.getItem('role');
     return this.roleFromLocal;
-   }
+}
 
 
-getCheckbox()
+
+
+createPermission()
 {
 
+}
+updatePermission()
+{
+  
+}
+deletePermission()
+{
+  
+}
+completedPermission()
+{
   if(this.roleFromLocal === 'user') return false;
   else return true;
 }

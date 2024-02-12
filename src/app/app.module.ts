@@ -15,6 +15,9 @@ import { AuthInterceptor } from './shared/auth.interceptor';
 import { ModalComponent } from './modal/modal.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { RoleComponent } from './role/role.component';
+import { UsersroleComponent } from './usersrole/usersrole.component';
+import { AdminroleComponent } from './adminrole/adminrole.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { MatSliderModule } from '@angular/material/slider';
     ApprainbowDirective,
     ModalComponent,
     AccountsComponent,
+    RoleComponent,
+    UsersroleComponent,
+    AdminroleComponent,
   ],
   imports: [
     BrowserModule,

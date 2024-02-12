@@ -8,7 +8,7 @@ import { RolepermissionService } from '../shared/rolepermission.service';
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css'
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent {
 
   todos: any[] = [];
   newTodo: string = '';
@@ -16,14 +16,24 @@ export class TodosComponent implements OnInit {
   showUpdate:boolean=false;
   showeditbutton:boolean=false;
   editbutton:boolean=true;
+
+  createTodoBool!:boolean; 
+  updateTodoBool!:boolean; 
+  deleteTodoBool!:boolean;
+  markTodoBool!:boolean; 
   
   TEST:String="CREATED BY:";
+  constructor(private todoService: TodoService, private authService : AuthService, private rolePermission: RolepermissionService) {}
+  
+  
 
   userRole = this.rolePermission.getRole();
-  todoCheckBox=this.rolePermission.getCheckbox();
+  todoCheckBox=this.rolePermission.completedPermission();
+  // updateTodo:any = this.rolePermission.updatePermission();
+  // createTodo:any = this.rolePermission.createPermission();
+  // deleteTodo:any = this.rolePermission.deletePermission();
 
-
-  constructor(private todoService: TodoService, private authService : AuthService, private rolePermission: RolepermissionService) {}
+  
 
 
   
