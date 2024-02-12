@@ -9,6 +9,7 @@ import { AdminPermissionService } from '../shared/admin-permission.service';
 })
 export class AdminroleComponent implements OnInit, OnDestroy
 {
+  error: any;
 
 
   constructor(private adminRole : AdminPermissionService){}
@@ -17,7 +18,7 @@ export class AdminroleComponent implements OnInit, OnDestroy
 
   ngOnDestroy()
   {
-    console.log(this.adminPermissions[0].update);
+    
   }
 
 
@@ -31,7 +32,9 @@ adminPermissions: any[] = [];
 
   getUserP()
   {
-    this.adminRole.getUserP().subscribe((p) => {this.adminPermissions = p});
+    this.adminRole.getUserP().subscribe((p) => {this.adminPermissions = p}, error => {
+      this.error = error.message;
+    });
     
     
   }

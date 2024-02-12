@@ -28,21 +28,20 @@ export class TodosComponent {
   
 
   userRole = this.rolePermission.getRole();
-  todoCheckBox=this.rolePermission.completedPermission();
+  
   // updateTodo:any = this.rolePermission.updatePermission();
   // createTodo:any = this.rolePermission.createPermission();
   // deleteTodo:any = this.rolePermission.deletePermission();
 
   
-  createTodobool:boolean = true;
-
-  
-  
+  createTodobool:boolean = this.rolePermission.createTodobool();
+  updateTodobool:boolean = this.rolePermission.updateTodobool();
+  deleteTodobool:boolean = this.rolePermission.deleteTodobool();
+  todoCheckBoxbool:boolean = this.rolePermission.completedPermission();
 
   ngOnInit() {
-    this.getTodos();
 
-    
+
   }
 
   

@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { AuthModel } from "./auth.model";
@@ -8,7 +8,7 @@ import { environment } from "../../environment/environment";
 
 
 @Injectable({providedIn:"root"})
-export class AuthService{
+export class AuthService implements OnDestroy{
 
     private token!: any;
 
@@ -32,6 +32,11 @@ export class AuthService{
 
 
      constructor(private http: HttpClient, private router: Router){}
+
+    ngOnDestroy()
+     {
+        
+    }
 
 
 
@@ -201,6 +206,7 @@ export class AuthService{
         localStorage.removeItem('username');
         localStorage.removeItem('role')
         sessionStorage.removeItem('authAdmin');
+        localStorage.removeItem('userP')
     }
 
     getLocalStorageData()

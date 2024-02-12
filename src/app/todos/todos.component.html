@@ -17,7 +17,7 @@
                         <button class="btn btn-outline-success" type="button" (click)="createTodo()" >ADD</button>
                       </div>
                          
-                      <div style="margin-left: 35%;" class="btn btn-outline-danger col" (click)="showEditButton()" >Show or Hide EDIT</div>
+                      <div *ngIf="updateTodobool" style="margin-left: 35%;" class="btn btn-outline-danger col" (click)="showEditButton()" >Show or Hide EDIT</div>
   
   
                       <div class="input-group p-4" *ngIf="showeditbutton">
@@ -33,7 +33,7 @@
                 
                 <div style="overflow-y: auto; height: 350px;">
                     <div class="m-3" *ngFor="let todo of todos">
-                      <div *ngIf="todoCheckBox"> 
+                      <div *ngIf="todoCheckBoxbool"> 
                         <input type="checkbox" [(ngModel)]="todo.completed" (click)="completed(todo)">
                       </div>
                       
@@ -42,7 +42,7 @@
                                 <div apprainbow class="card col-md-10 border-0"> {{todo.description}} </div>
                                 <div *ngIf="userRole == 'admin'" class="card col-md-10 border-0" style="font-size:small;">{{TEST}}{{todo.ownerName}} </div>
                                 <button class="btn btn-outline-primary col me-2" #editm data-bs-toggle="modal" type="button" (click)="showedit(todo)" [hidden]="editbutton">Update</button>
-                                <div class="btn btn-outline-danger col" (click)="deleteTodo(todo)" >X</div>  
+                                <div *ngIf="deleteTodobool"  class="btn btn-outline-danger col" (click)="deleteTodo(todo)" >X</div>  
                         </div>
                       </div>
                     </div>

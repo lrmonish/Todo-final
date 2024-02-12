@@ -12,16 +12,22 @@ export class UsersroleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy()
   {
-    console.log(this.userPermissions[0].update);
+    
+    
   }
 
 
   ngOnInit() {
     this.getUserP();
+    const jsonString = JSON.stringify(this.userPermissions);
+    localStorage.setItem('userP',`${jsonString}`);
   
   }
 
 userPermissions: any[] = [];
+
+
+
 
 
   getUserP()
