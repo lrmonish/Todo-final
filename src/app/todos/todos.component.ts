@@ -36,9 +36,7 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
   ngAfterViewInit()
    {
     this.userRoles = localStorage.getItem('role');
-    console.log("role",this.userRoles);
     
-
     if(this.userRoles === 'admin' || this.userRoles === 'superadmin')
     {
        this.ownerInformation = true;
@@ -57,16 +55,9 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
   ngOnDestroy() 
   {
 
-    console.log("admin", this.adminP);
-    console.log("user", this.userP);
-    
-    
    this.adminP= [];
    this.userP = [];
-   
-   console.log("admin2", this.adminP);
-   
-   
+    
   }
   
   
@@ -81,28 +72,24 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
 
   ngDoCheck() 
   {
-    const userRole = this.rolePermission.getRole();
-    if(userRole === 'user')
-    {
-      this.deleteTodobool = this.userP[0].delete
-      this.createTodobool = this.userP[0].create
-      this.updateTodobool = this.userP[0].update
-      this.todoCheckBoxbool = this.userP[0].completed
-    }
-    else if(userRole === 'admin')
-    {
-      this.deleteTodobool = this.adminP[0].delete
-      this.createTodobool = this.adminP[0].create
-      this.updateTodobool = this.adminP[0].update
-      this.todoCheckBoxbool = this.adminP[0].completed
-    }
-    else
-    {
-
-      this.deleteTodobool = true;
-      this.createTodobool = true;
-      this.updateTodobool = true;
-      this.todoCheckBoxbool = true;
+    if (this.userP.length > 0 && this.adminP.length > 0) {
+      const userRole = this.rolePermission.getRole();
+      if (userRole === 'user') {
+        this.deleteTodobool = this.userP[0].delete;
+        this.createTodobool = this.userP[0].create;
+        this.updateTodobool = this.userP[0].update;
+        this.todoCheckBoxbool = this.userP[0].completed;
+      } else if (userRole === 'admin') {
+        this.deleteTodobool = this.adminP[0].delete;
+        this.createTodobool = this.adminP[0].create;
+        this.updateTodobool = this.adminP[0].update;
+        this.todoCheckBoxbool = this.adminP[0].completed;
+      } else {
+        this.deleteTodobool = true;
+        this.createTodobool = true;
+        this.updateTodobool = true;
+        this.todoCheckBoxbool = true;
+      }
     }
    
   }

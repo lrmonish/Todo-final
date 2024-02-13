@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { AuthModel } from "./auth.model";
@@ -8,16 +8,16 @@ import { environment } from "../../environment/environment";
 
 
 @Injectable({providedIn:"root"})
-export class AuthService {
+export class AuthService implements OnInit {
 
     private token!: any;
 
     private authenticatedSub = new Subject<boolean>();
     private AdminSub = new Subject<boolean>();
 
-    private isAuthenticated = false;
-    private isauthAdmin = false;
-    private isauthSuperAdmin = false;
+    private isAuthenticated!:boolean;
+    private isauthAdmin!: boolean;
+    private isauthSuperAdmin!: boolean;
 
     private logoutTimer: any;
 
@@ -34,7 +34,17 @@ export class AuthService {
 
 
      constructor(private http: HttpClient, private router: Router){}
+    
+     ngOnInit() 
+     {
+        this.getIsAdmin();
+        this.getIsSuperadmin();
+    }
 
+    subsmeth()
+    {
+        this.isAuthenticated = true;
+    }
 
 getAdminBool()
 {
@@ -117,27 +127,19 @@ getAdminBool()
                 
                 if(this.token){
                     this.userRole = this.userRole
-                    this.isAuthenticated = true;
+                   
                     this.router.navigate(['todos']);
                     this.logoutTimer = setTimeout(() => {this.logout()}, res.expiresIn * 1000);
                     const now = new Date();
                     const expiresDate = new Date(now.getTime() + (res.expiresIn * 1000));
                     this.storeLoginDetails(this.token, expiresDate, this.userRole, this.usernameLogggedin, this.userrolename);
-
-                    setTimeout(()=>{
-                        alert("Login success!!!");
-                        this.getIsAdmin();
-                        this.getIsSuperadmin();
-                      },500)
-                      
+                   this.subsmeth();
+                    alert("Login success!!!");
+                    
                 }
             },err => {
-                setTimeout(() => {
-                    let errfromwrong = err.error.message;
+                let errfromwrong = err.error.message;
                     alert(errfromwrong);
-                }, 0);
-               
-                
                
               })
     }
