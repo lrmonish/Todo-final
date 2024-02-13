@@ -12,9 +12,9 @@
                 </div>
   
                 <div class="shadow">
-                    <div *ngIf="createTodobool" class="input-group p-4">
+                    <div  class="input-group p-4">
                         <input type="text" class="form-control" placeholder="Enter task " name="task"  [(ngModel)]="newTodo" >
-                        <button class="btn btn-outline-success" type="button" (click)="createTodo()" >ADD</button>
+                        <button *ngIf="createTodobool" class="btn btn-outline-success" type="button" (click)="createTodo()" >ADD</button>
                       </div>
                          
                       <div *ngIf="updateTodobool" style="margin-left: 35%;" class="btn btn-outline-danger col" (click)="showEditButton()" >Show or Hide EDIT</div>
@@ -40,7 +40,7 @@
                         <div class="p-2 shadow border" id="tasks" >
                             <div class="input-group row ps-3" >
                                 <div apprainbow class="card col-md-10 border-0"> {{todo.description}} </div>
-                                <div *ngIf="userRole == 'admin'" class="card col-md-10 border-0" style="font-size:small;">{{TEST}}{{todo.ownerName}} </div>
+                                <div *ngIf="ownerInformation" class="card col-md-10 border-0" style="font-size:small;">{{TEST}}{{todo.ownerName}} </div>
                                 <button class="btn btn-outline-primary col me-2" #editm data-bs-toggle="modal" type="button" (click)="showedit(todo)" [hidden]="editbutton">Update</button>
                                 <div *ngIf="deleteTodobool"  class="btn btn-outline-danger col" (click)="deleteTodo(todo)" >X</div>  
                         </div>

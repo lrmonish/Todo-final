@@ -10,8 +10,13 @@
                     <br>  
                     <label>Password</label>
                     <input class="form-control" id="uppassword" formControlName="password" type="password" minlength="8" maxlength="12">
+                   
+                    <div *ngIf="adminPresent">
                     <label >Provide Admin Key If Have</label>
                     <input class="form-control" id="adminkey" formControlName="adminkey" type="password" minlength="4" maxlength="10">
+
+                   </div> 
+                    
                 </div>
                 <br>
                 <button [disabled]="!signupForm.valid" type="submit" class="btn btn-success">Sign Up</button>

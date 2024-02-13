@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { TodoService } from '../shared/todo.service';
 
@@ -8,7 +8,7 @@ import { TodoService } from '../shared/todo.service';
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.css'
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent implements OnInit, OnDestroy{
   users: any[] = [];
   // usersForAdmin: any[] = [];
   newTodoDescription!:any;
@@ -19,6 +19,10 @@ export class AccountsComponent implements OnInit {
 
 
 constructor(private http :HttpClient, private authService : AuthService, private todoservice : TodoService){}
+  ngOnDestroy() {
+    console.log(this.users);
+    
+  }
   ngOnInit(): void {
    this.getUsers();
    

@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, OnDestroy } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { AuthModel } from "./auth.model";
@@ -8,7 +8,7 @@ import { environment } from "../../environment/environment";
 
 
 @Injectable({providedIn:"root"})
-export class AuthService implements OnDestroy{
+export class AuthService {
 
     private token!: any;
 
@@ -17,6 +17,7 @@ export class AuthService implements OnDestroy{
 
     private isAuthenticated = false;
     private isauthAdmin = false;
+    private isauthSuperAdmin = false;
 
     private logoutTimer: any;
 
@@ -27,25 +28,28 @@ export class AuthService implements OnDestroy{
     role!:any;
     usernameLogggedin!:string;
     userrolename!:string;
-    
+    adminPresent!:Boolean ;
+
      apiUrl:any = environment.apiUrl;
 
 
      constructor(private http: HttpClient, private router: Router){}
 
-    ngOnDestroy()
-     {
-        
-    }
 
+getAdminBool()
+{
+    return this.adminPresent;
+}
 
-
-
-    
      getIsAdmin()
      {
      return this.isauthAdmin;
      } 
+
+     getIsSuperadmin()
+     {
+        return this.isauthSuperAdmin;
+     }
 
      getAdminSub()
      {
@@ -103,14 +107,16 @@ export class AuthService implements OnDestroy{
                 
                 if(this.userrolename === 'admin')
                 {
-                    // this.AdminSub.next(true);
                     this.isauthAdmin = true;    
+                }
+                else if(this.userrolename === 'superadmin')
+                {
+                    this.isauthSuperAdmin = true;
+                    this.isauthAdmin = true; 
                 }
                 
                 if(this.token){
                     this.userRole = this.userRole
-                    // this.authenticatedSub.next(true);
-                    
                     this.isAuthenticated = true;
                     this.router.navigate(['todos']);
                     this.logoutTimer = setTimeout(() => {this.logout()}, res.expiresIn * 1000);
@@ -121,6 +127,7 @@ export class AuthService implements OnDestroy{
                     setTimeout(()=>{
                         alert("Login success!!!");
                         this.getIsAdmin();
+                        this.getIsSuperadmin();
                       },500)
                       
                 }
@@ -235,7 +242,6 @@ export class AuthService implements OnDestroy{
             if(expiresIn > 0){
                 this.token = localStorageData.token;
                 this.isAuthenticated = true;
-                // this.authenticatedSub.next(true);
                 
             }
         }
@@ -253,8 +259,7 @@ export class AuthService implements OnDestroy{
         this.token = '';
         this.isAuthenticated = false;
         this.isauthAdmin=false;
-        // this.authenticatedSub.next(false);
-        // this.AdminSub.next(false);
+        this.isauthSuperAdmin = false;
         this.router.navigate(['/']);
         clearTimeout(this.logoutTimer);
         this.clearLoginDetails();

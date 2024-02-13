@@ -7,19 +7,13 @@ import { AdminPermissionService } from '../shared/admin-permission.service';
   templateUrl: './adminrole.component.html',
   styleUrl: './adminrole.component.css'
 })
-export class AdminroleComponent implements OnInit, OnDestroy
+export class AdminroleComponent implements OnInit
 {
   error: any;
 
 
   constructor(private adminRole : AdminPermissionService){}
 
-
-
-  ngOnDestroy()
-  {
-    
-  }
 
 
   ngOnInit() {

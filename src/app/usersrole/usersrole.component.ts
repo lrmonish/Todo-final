@@ -6,15 +6,11 @@ import { RolepermissionService } from '../shared/rolepermission.service';
   templateUrl: './usersrole.component.html',
   styleUrl: './usersrole.component.css'
 })
-export class UsersroleComponent implements OnInit, OnDestroy {
+export class UsersroleComponent implements OnInit {
 
   constructor(private rolePermission : RolepermissionService){}
 
-  ngOnDestroy()
-  {
-    
-    
-  }
+
 
 
   ngOnInit() {

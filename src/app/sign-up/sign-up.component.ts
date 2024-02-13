@@ -13,6 +13,7 @@ export class SignUpComponent implements OnInit {
 
   signupForm!: FormGroup;
   errorMessage: any = null;
+  adminPresent!:boolean;
 
   constructor(private authService: AuthService, private router: Router ) { }
 

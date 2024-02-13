@@ -1,5 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { AfterViewChecked, Component} from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { TodoService } from '../shared/todo.service';
 
@@ -8,15 +7,13 @@ import { TodoService } from '../shared/todo.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked  {
+export class HeaderComponent implements AfterViewChecked  {
  
  
-
-  // private authenticationSub!: Subscription;
-  // private authAdminSub!:Subscription;
 
   userAuthenticated = false;
   authAdmin = false;
+  authSuperadmin = false;
 
   userRole!:boolean;
   istrue:boolean = true;
@@ -35,21 +32,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit, AfterV
       this.userAuthenticated = this.authService.getIsAuthenticated();
     
       this.authAdmin = this.authService.getIsAdmin();
-      // this.authenticationSub = this.authService.getAuthenticatedSub().subscribe(status => 
-      //   {
-      //   this.userAuthenticated = status
-      // })
+      this.authSuperadmin = this.authService.getIsSuperadmin();
+      
   
-
-      // this.authAdmin = this.authService.getIsAdmin();
-  
-      //  this.authAdminSub = this.authService.getAdminSub().subscribe(status=>{
-        
-          // localStorage.setItem('authAdmin',`${status}`);
-        // this.authAdmin = status
-      //  })
   let  TTT = this.authService.getIsAdmin();
-  // sessionStorage.setItem('authAdmin', `${TTT}`);
+ 
 
        if(TTT)
        {
@@ -65,25 +52,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit, AfterV
     this.userRole = this.authService.userRole;
   }
   
-  ngOnDestroy() {
-    // this.authenticationSub.unsubscribe();
-    // this.authAdminSub.unsubscribe();
-    
-  }
-
-
-  ngAfterViewInit()
-  {
-
-    
-   
-    
-  }
-  ngOnInit() {
-    
-    
-   
-  }
 
   logout(){
     
