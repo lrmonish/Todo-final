@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="row">
     <div class="col">
         <form (ngSubmit)="onSubmit()" [formGroup]='signupForm'>
@@ -11,7 +12,7 @@
                     <label>Password</label>
                     <input class="form-control" id="uppassword" formControlName="password" type="password" minlength="8" maxlength="12">
                    
-                    <div *ngIf="adminPresent">
+                    <div>
                     <label >Provide Admin Key If Have</label>
                     <input class="form-control" id="adminkey" formControlName="adminkey" type="password" minlength="4" maxlength="10">
 

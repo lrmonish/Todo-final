@@ -128,7 +128,7 @@ getAdminBool()
                 if(this.token){
                     this.userRole = this.userRole
                    
-                    this.router.navigate(['todos']);
+                    this.router.navigate(['/authhead/todos']);
                     this.logoutTimer = setTimeout(() => {this.logout()}, res.expiresIn * 1000);
                     const now = new Date();
                     const expiresDate = new Date(now.getTime() + (res.expiresIn * 1000));

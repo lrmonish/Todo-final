@@ -7,56 +7,58 @@ import { TodoService } from '../shared/todo.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements AfterViewChecked  {
+export class HeaderComponent  {
  
  
 
-  userAuthenticated = false;
-  authAdmin = false;
-  authSuperadmin = false;
+  // userAuthenticated = false;
+  // authAdmin = false;
+  // authSuperadmin = false;
 
-  userRole!:boolean;
-  istrue:boolean = true;
+  // userRole!:boolean;
+  // istrue:boolean = true;
   
-   role!:any;
+  //  role!:any;
   
   
   
 
-  constructor(private authService: AuthService, private todoservice : TodoService) {} 
+  constructor() {} 
 
-  ngAfterViewChecked() 
-  {
+  // ngAfterViewChecked() 
+  // {
 
     
-      this.userAuthenticated = this.authService.getIsAuthenticated();
+  //     this.userAuthenticated = this.authService.getIsAuthenticated();
     
-      this.authAdmin = this.authService.getIsAdmin();
-      this.authSuperadmin = this.authService.getIsSuperadmin();
+  //     this.authAdmin = this.authService.getIsAdmin();
+  //     this.authSuperadmin = this.authService.getIsSuperadmin();
       
   
-  let  TTT = this.authService.getIsAdmin();
+  // let  TTT = this.authService.getIsAdmin();
  
 
-       if(TTT)
-       {
-        this.authAdmin = true;
-       }
-       else
-       {
-        this.authAdmin= false;
-       }
+  //      if(TTT)
+  //      {
+  //       this.authAdmin = true;
+  //      }
+  //      else
+  //      {
+  //       this.authAdmin= false;
+  //      }
 
    
 
-    this.userRole = this.authService.userRole;
-  }
+  //   this.userRole = this.authService.userRole;
+  // }
   
 
-  logout(){
+  
+
+  // logout(){
     
-    this.authService.logout();
-  }
+  //   this.authService.logout();
+  // }
   
  
 
