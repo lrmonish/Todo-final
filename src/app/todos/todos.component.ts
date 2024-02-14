@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnDestroy } from '@angular/core';
 import { TodoService } from '../shared/todo.service'
-import { AuthService } from '../shared/auth.service';
 import { RolepermissionService } from '../shared/rolepermission.service';
-import { map, throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-todos',
@@ -31,7 +30,7 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
   todoCheckBoxbool!:boolean;
   
 
-  constructor(private todoService: TodoService, private authService : AuthService, private rolePermission: RolepermissionService) {}
+  constructor(private todoService: TodoService, private rolePermission: RolepermissionService) {}
   
   ngAfterViewInit()
    {

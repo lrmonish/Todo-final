@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
    
     this.authService.signupUser(this.signupForm.value.username, this.signupForm.value.password, this.signupForm.value.adminkey).subscribe(res => {
      
-      this.router.navigate(['login']);
+      this.router.navigate(['/login']);
     },
     err => {
       
