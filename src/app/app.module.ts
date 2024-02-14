@@ -15,9 +15,10 @@ import { UsersroleComponent } from './usersrole/usersrole.component';
 import { AdminroleComponent } from './adminrole/adminrole.component';
 import { AuthheaderComponent } from './authheader/authheader.component';
 import { Custom404Component } from './custom404/custom404.component';
-import { TodosModule } from './todos/todos.module';
-import { AccountsModule } from './accounts/accounts.module';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { TodosComponent } from './todos/todos.component';
+import { ApprainbowDirective } from './todos/apprainbow.directive';
+import { SignupModule } from './sign-up/sign-up.module';
 
 
 
@@ -32,7 +33,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     AdminroleComponent,
     AuthheaderComponent,
     Custom404Component,
-    SignUpComponent
+    AccountsComponent,
+    TodosComponent,
+    ApprainbowDirective,
   ],
   imports: [
     BrowserModule,
@@ -41,10 +44,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     HttpClientModule,
     FormsModule,
     MatSliderModule,
-    // TodosModule
-    // AccountsModule
-    
-    
+    SignupModule  
   ],
   providers: [
     provideHttpClient(withFetch()),

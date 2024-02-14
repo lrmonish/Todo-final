@@ -7,27 +7,29 @@ import { AdminroleComponent } from './adminrole/adminrole.component';
 import { UsersroleComponent } from './usersrole/usersrole.component';
 import { AuthheaderComponent } from './authheader/authheader.component';
 import { Custom404Component } from './custom404/custom404.component';
-import { TodosRoutingModule } from './todos/todos-routing.module';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { AccountsRoutingModule } from './accounts/accounts-route.module';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { TodosComponent } from './todos/todos.component';
 
 const routes: Routes = [
   
   {path: '', component:HomeComponent},
   {path:'login', component:LoginComponent},
-  // {path:'signup',loadChildren: () => SignupRoutingModule},
-  {path:'signup', component:SignUpComponent},
+  {path:'signup', loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignupModule)},
+
+  
   
   {path:'authhead',
    component:AuthheaderComponent,
    children:
    [
     { path: '', redirectTo: 'todos', pathMatch: 'full' },
-    { path: 'todos', loadChildren: () => TodosRoutingModule },
+
+    { path: 'todos', component:TodosComponent},
+
     {path: 'deleteUser', component:ModalComponent,canActivate: [RouteGuard] },
-    { path: 'accounts', loadChildren: () => AccountsRoutingModule },
+    { path: 'accounts', component:AccountsComponent },
     {
       path: 'role',
       component: RoleComponent,
