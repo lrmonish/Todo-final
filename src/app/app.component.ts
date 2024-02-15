@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService){}
 
   ngOnInit(): void {
-    // this.authService.authenticateFromLocalStorage();
+    this.authService.authenticateFromLocalStorage();
   }
   title = 'Todo App';
 }

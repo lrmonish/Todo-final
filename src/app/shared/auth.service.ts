@@ -69,6 +69,7 @@ export class AuthService {
 
     getToken()
     {
+        // const tk = localStorage.getItem('tokenIn');
         return this.token;
     }
     
@@ -114,6 +115,7 @@ export class AuthService {
                 }
                 
                 if(this.token){
+                    // localStorage.setItem('tokenIn',`${this.token}`);
                     this.userRole = this.userRole
                     this.authenticatedSub.next(true);
                     this.isAuthenticated = true;
