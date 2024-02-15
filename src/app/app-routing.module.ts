@@ -20,17 +20,13 @@ const routes: Routes = [
   {path:'signup', loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignupModule)},
 
   
-  
-  {path:'authhead',
-   component:AuthheaderComponent,
-   children:
-   [
     { path: '', redirectTo: 'todos', pathMatch: 'full' },
 
-    { path: 'todos', component:TodosComponent},
+    { path: 'todos', component:TodosComponent,canActivate:[RouteGuard]},
 
-    {path: 'deleteUser', component:ModalComponent,canActivate: [RouteGuard] },
-    { path: 'accounts', component:AccountsComponent },
+
+    {path: 'deleteUser', component:ModalComponent,canActivate:[RouteGuard]},
+    { path: 'accounts', component:AccountsComponent,canActivate:[RouteGuard]},
     {
       path: 'role',
       component: RoleComponent,
@@ -40,22 +36,21 @@ const routes: Routes = [
         {
           path: 'adminrole',
           component: AdminroleComponent,
-          canActivate: [RouteGuard],
+          canActivate:[RouteGuard],
           data: { roles: ['admin'] },
   
         },
         {
           path: 'userrole',
-          component: UsersroleComponent,     
-          canActivate: [RouteGuard],
+          component: UsersroleComponent,  
+          canActivate:[RouteGuard],   
           data: { roles: ['user'] },
         }
-      ]
+      ],
+      canActivate:[RouteGuard]
     },
-   ]
-  ,canActivate: [RouteGuard]
-  },
   { path: '**', component: Custom404Component }
+
 ];
 
 

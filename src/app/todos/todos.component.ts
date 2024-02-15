@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, DoCheck, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { TodoService } from '../shared/todo.service'
 import { RolepermissionService } from '../shared/rolepermission.service';
+import { AuthService } from '../shared/auth.service';
 
 
 @Component({
@@ -8,7 +9,7 @@ import { RolepermissionService } from '../shared/rolepermission.service';
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css'
 })
-export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
+export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit, OnInit {
 
   todos: any[] = [];
   userP : any[] = [];
@@ -30,19 +31,11 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
   todoCheckBoxbool!:boolean;
   
 
-  constructor(private todoService: TodoService, private rolePermission: RolepermissionService) {}
+  constructor(private todoService: TodoService, private rolePermission: RolepermissionService, private authService: AuthService) {}
   
   ngAfterViewInit()
    {
-    this.userRoles = localStorage.getItem('role');
-    
-    if(this.userRoles === 'admin' || this.userRoles === 'superadmin')
-    {
-       this.ownerInformation = true;
-    }
-    else{
-      this.ownerInformation = false;
-    }
+   
     
   }
   
@@ -66,6 +59,17 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit {
     this.getTodos();
     this.getUserP();
     this.getAdminP();
+ 
+
+    this.userRoles = this.authService.getUserRole();
+    
+    if(this.userRoles === 'admin' || this.userRoles === 'superadmin')
+    {
+       this.ownerInformation = true;
+    }
+    else{
+      this.ownerInformation = false;
+    }
   }
 
 

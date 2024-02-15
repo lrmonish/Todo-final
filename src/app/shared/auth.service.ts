@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 import { AuthModel } from "./auth.model";
@@ -8,72 +8,62 @@ import { environment } from "../../environment/environment";
 
 
 @Injectable({providedIn:"root"})
-export class AuthService implements OnInit {
+
+
+export class AuthService {
 
     private token!: any;
 
     private authenticatedSub = new Subject<boolean>();
-    private AdminSub = new Subject<boolean>();
+    private adminSub = new Subject<boolean>();
+    private superAdminSub = new Subject<boolean>();
+    
 
     private isAuthenticated!:boolean;
-    private isauthAdmin!: boolean;
-    private isauthSuperAdmin!: boolean;
+    private isAdmin!:boolean;
+    private isSuperAdmin!:boolean;
+   
 
     private logoutTimer: any;
-
-    errorMessageForLogin:any = null;
-    deleteUserRes:any ="";
     userRole!: boolean;
-    currenttoken!:any;
-    role!:any;
-    usernameLogggedin!:string;
+    usernameLoggedin!:string;
     userrolename!:string;
-    adminPresent!:Boolean ;
 
      apiUrl:any = environment.apiUrl;
 
 
      constructor(private http: HttpClient, private router: Router){}
     
-     ngOnInit() 
-     {
-        this.getIsAdmin();
-        this.getIsSuperadmin();
-    }
-
-    subsmeth()
-    {
-        this.isAuthenticated = true;
-    }
-
-getAdminBool()
-{
-    return this.adminPresent;
-}
-
-     getIsAdmin()
-     {
-     return this.isauthAdmin;
-     } 
-
-     getIsSuperadmin()
-     {
-        return this.isauthSuperAdmin;
-     }
-
-     getAdminSub()
-     {
-      return this.AdminSub.asObservable();
-     }
-     
+    
+    
     getIsAuthenticated()
     {
         return this.isAuthenticated;
     }
+    getIsAdmin()
+    {
+        return this.isAdmin;
+    }
+    getIsSuperAdmin()
+    {
+        return this.isSuperAdmin;
+    }
+
+
+
 
     getAuthenticatedSub()
     {
         return this.authenticatedSub.asObservable();
+    }
+
+    getAdminSub()
+    {
+        return this.adminSub.asObservable();
+    }
+    getSuperAdminSub()
+    {
+        return this.superAdminSub.asObservable();
     }
 
 
@@ -82,7 +72,10 @@ getAdminBool()
         return this.token;
     }
     
-   
+   getUserRole()
+   {
+    return this.userrolename;
+   }
     
     signupUser(username: string, password: string, adminkey:string)
     {
@@ -94,15 +87,7 @@ getAdminBool()
 
 
     
-    updateUser(user:any)
-    {
-    
-    const id = user._id;
-    let completedz = !user.isAdmin;
-    
-   return this.http.put(`${this.apiUrl}/updateAcess/${id}`,user);
-    
-    }
+   
 
     loginUser(username: string, password: string)
     {
@@ -113,27 +98,30 @@ getAdminBool()
                 this.userrolename = res.role;
                 this.userRole = res.user;
                 this.token = res.token;
-                this.usernameLogggedin = res.username;
+                this.usernameLoggedin = res.username;
                 
                 if(this.userrolename === 'admin')
                 {
-                    this.isauthAdmin = true;    
+                    this.adminSub.next(true);
+                    this.isAdmin = true;    
                 }
                 else if(this.userrolename === 'superadmin')
                 {
-                    this.isauthSuperAdmin = true;
-                    this.isauthAdmin = true; 
+                    this.superAdminSub.next(true);
+                    this.adminSub.next(true);
+                    this.isSuperAdmin = true;
+                    this.isAdmin = true; 
                 }
                 
                 if(this.token){
                     this.userRole = this.userRole
-                   
-                    this.router.navigate(['/authhead/todos']);
+                    this.authenticatedSub.next(true);
+                    this.isAuthenticated = true;
+                    this.router.navigate(['/todos']);
                     this.logoutTimer = setTimeout(() => {this.logout()}, res.expiresIn * 1000);
                     const now = new Date();
                     const expiresDate = new Date(now.getTime() + (res.expiresIn * 1000));
-                    this.storeLoginDetails(this.token, expiresDate, this.userRole, this.usernameLogggedin, this.userrolename);
-                   this.subsmeth();
+                    this.storeLoginDetails(this.token, expiresDate, this.userRole, this.usernameLoggedin, this.userrolename);
                     alert("Login success!!!");
                     
                 }
@@ -145,6 +133,19 @@ getAdminBool()
     }
 
 
+
+
+
+///////////////////////////////////
+    updateUser(user:any)
+    {
+    
+    const id = user._id;
+    let completedz = !user.isAdmin;
+    
+   return this.http.put(`${this.apiUrl}/updateAcess/${id}`,user);
+    
+    }
 
     getUsers() 
     {
@@ -259,10 +260,15 @@ getAdminBool()
     logout()
     {
         this.token = '';
+        this.authenticatedSub.next(false);
+        this.superAdminSub.next(false);
+        this.adminSub.next(false);
+        
         this.isAuthenticated = false;
-        this.isauthAdmin=false;
-        this.isauthSuperAdmin = false;
-        this.router.navigate(['/']);
+        this.isSuperAdmin = false;
+        this.isAdmin = false;
+
+        this.router.navigate(['/home']);
         clearTimeout(this.logoutTimer);
         this.clearLoginDetails();
     }

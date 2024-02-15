@@ -1,54 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { TodoService } from '../shared/todo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-authheader',
   templateUrl: './authheader.component.html',
   styleUrl: './authheader.component.css'
 })
-export class AuthheaderComponent implements OnInit
+export class AuthheaderComponent implements OnInit, OnDestroy
  {
-  userAuthenticated = false;
-  authAdmin = false;
-  authSuperadmin = false;
+  userAuthenticated!:boolean;
+  admin:boolean=false;
+  superAdmin = false;
 
-  userRole!:boolean;
-  istrue:boolean = true;
-  
-   role!:any;
+  userAuthenticatedSub!:Subscription;
+  adminSub!:Subscription;
+  superAdminSub!:Subscription;
+
   constructor(private authService: AuthService, private todoservice : TodoService) {} 
-  ngOnInit(): void {
-   
-    this.userAuthenticated = this.authService.getIsAuthenticated();
-    
-    this.authAdmin = this.authService.getIsAdmin();
-    this.authSuperadmin = this.authService.getIsSuperadmin();
-    
 
-let  TTT = this.authService.getIsAdmin();
-
-
-     if(TTT)
-     {
-      this.authAdmin = true;
-     }
-     else
-     {
-      this.authAdmin= false;
-     }
-
- 
-
-  this.userRole = this.authService.userRole;
-  }
-
-  ngAfterViewChecked() 
-  {
-
-    
+  ngOnDestroy(): void {
+   this. userAuthenticatedSub.unsubscribe();
   }
   
+  
+  ngOnInit() 
+  {
+   this.userAuthenticatedSub = this.authService.getAuthenticatedSub().subscribe(data=>
+    {
+    this.userAuthenticated = data;
+    
+   });
+   
+   this.adminSub = this.authService.getAdminSub().subscribe(data=>
+    {
+this.admin = data;
+   });
+
+   this.superAdminSub = this.authService.getSuperAdminSub().subscribe(data=>
+    {
+this.superAdmin = data;
+   });
+
+
+  }
 
   
   logout(){

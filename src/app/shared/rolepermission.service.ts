@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environment/environment';
+import { AuthService } from './auth.service';
 
 
 
@@ -13,12 +14,12 @@ export class RolepermissionService {
   roleFromLocal!:any;
  
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
 
 getRole()
 {
-     this.roleFromLocal = localStorage.getItem('role');
+     this.roleFromLocal = this.authService.getUserRole();
     return this.roleFromLocal;
 }
 

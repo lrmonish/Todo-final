@@ -49,7 +49,7 @@ export class TodoService {
   {
 
     const id = todocom._id;
-    let completedz = !todocom.completed;
+    
 
    return this.http.put(`${this.apiUrl}/updateComplete/${id}`,todocom);
 

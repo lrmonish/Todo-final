@@ -13,16 +13,16 @@
               <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Signup</span>
             </a>
 
-            <a *ngIf="userAuthenticated" routerLink="/authhead/todos" routerLinkActive="colour" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+            <a *ngIf="userAuthenticated" routerLink="/todos" routerLinkActive="colour" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
               <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Todo</span>
             </a>
-            <a *ngIf="userAuthenticated " routerLink="/authhead/deleteUser" routerLinkActive="colour" class="list-group-item list-group-item-action ">
+            <a *ngIf="userAuthenticated " routerLink="/deleteUser" routerLinkActive="colour" class="list-group-item list-group-item-action ">
               <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Delete User</span>
             </a>
-            <a *ngIf="userAuthenticated && authSuperadmin" routerLink="/authhead/role" routerLinkActive="colour" class="list-group-item list-group-item-action ">
+            <a *ngIf="userAuthenticated && superAdmin" routerLink="/role" routerLinkActive="colour" class="list-group-item list-group-item-action ">
                 <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Role Manager</span>
               </a>
-              <a *ngIf="userAuthenticated && authAdmin" routerLink="/authhead/accounts" routerLinkActive="colour" class="list-group-item list-group-item-action ">
+              <a *ngIf="userAuthenticated && admin" routerLink="/accounts" routerLinkActive="colour" class="list-group-item list-group-item-action ">
                 <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>User Manager</span>
               </a>
               <a  *ngIf="userAuthenticated"  routerLinkActive="colour" (click)="logout()" class="list-group-item list-group-item-action ">
