@@ -16,9 +16,11 @@ import { AdminroleComponent } from './adminrole/adminrole.component';
 import { AuthheaderComponent } from './authheader/authheader.component';
 import { Custom404Component } from './custom404/custom404.component';
 import { AccountsComponent } from './accounts/accounts.component';
-import { TodosComponent } from './todos/todos.component';
 import { ApprainbowDirective } from './todos/apprainbow.directive';
 import { SignupModule } from './sign-up/sign-up.module';
+
+import { TodosComponent } from './todos/todos.component';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -34,17 +36,18 @@ import { SignupModule } from './sign-up/sign-up.module';
     AuthheaderComponent,
     Custom404Component,
     AccountsComponent,
-    TodosComponent,
     ApprainbowDirective,
+    TodosComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     MatSliderModule,
-    SignupModule  
+    SignupModule , 
   ],
   providers: [
     provideHttpClient(withFetch()),

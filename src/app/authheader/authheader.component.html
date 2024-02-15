@@ -1,7 +1,17 @@
- <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+ <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="z-index: 900;">
         <div class="position-sticky">
           <h1 style="padding: left 5px; ;">Main page</h1>
           <div class="list-group list-group-flush mx-3 mt-4">
+            
+            <a *ngIf="!userAuthenticated" routerLink="/home" routerLinkActive="colour" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+              <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Home</span>
+            </a>
+            <a *ngIf="!userAuthenticated" routerLink="/login" routerLinkActive="colour" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+              <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Login</span>
+            </a>
+            <a *ngIf="!userAuthenticated" routerLink="/signup" routerLinkActive="colour" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+              <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Signup</span>
+            </a>
 
             <a *ngIf="userAuthenticated" routerLink="/authhead/todos" routerLinkActive="colour" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
               <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Todo</span>
@@ -23,9 +33,8 @@
       </nav>
   
  
-    <main style="margin-top: 58px;">
-      <h1 style="text-align: center">Todo APP</h1>
-      <div class="container pt-4">
+    <main>
+      <div style="margin-right: 70px;">
           <router-outlet></router-outlet>
       </div>
     </main>

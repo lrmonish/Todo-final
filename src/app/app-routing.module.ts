@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { RouteGuard } from './shared/route-guard';
 import { ModalComponent } from './modal/modal.component';
 import { RoleComponent } from './role/role.component';
@@ -14,7 +14,8 @@ import { TodosComponent } from './todos/todos.component';
 
 const routes: Routes = [
   
-  {path: '', component:HomeComponent},
+  {path: '', redirectTo:'/home', pathMatch:'full'},
+  {path: 'home', component:HomeComponent},
   {path:'login', component:LoginComponent},
   {path:'signup', loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignupModule)},
 
@@ -61,7 +62,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{preloadingStrategy:PreloadAllModules})],
   exports: [RouterModule],
   providers: [RouteGuard]
 })
