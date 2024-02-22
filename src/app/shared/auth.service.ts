@@ -101,13 +101,19 @@ export class AuthService {
                 this.token = res.token;
                 this.usernameLoggedin = res.username;
                 
+                localStorage.setItem('auth', `${this.userrolename}`);
+                
+
                 if(this.userrolename === 'admin')
                 {
+                    localStorage.setItem('admin','true');
                     this.adminSub.next(true);
                     this.isAdmin = true;    
                 }
                 else if(this.userrolename === 'superadmin')
                 {
+                    localStorage.setItem('admin','true');
+                    localStorage.setItem('superadmin','true');
                     this.superAdminSub.next(true);
                     this.adminSub.next(true);
                     this.isSuperAdmin = true;
@@ -219,6 +225,10 @@ export class AuthService {
         localStorage.removeItem('role')
         sessionStorage.removeItem('authAdmin');
         localStorage.removeItem('userP')
+        localStorage.removeItem('auth')
+        localStorage.removeItem('admin');
+        localStorage.removeItem('superadmin');
+        
     }
 
     getLocalStorageData()

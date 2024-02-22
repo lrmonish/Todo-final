@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
 })
 export class AuthheaderComponent implements OnInit, OnDestroy
  {
-  userAuthenticated!:boolean;
-  admin:boolean=false;
-  superAdmin = false;
+  userAuthenticated!:any;
+  admin:any=false;
+  superAdmin:any = false;
 
   userAuthenticatedSub!:Subscription;
   adminSub!:Subscription;
@@ -27,25 +27,54 @@ export class AuthheaderComponent implements OnInit, OnDestroy
   
   ngOnInit() 
   {
+    
+
    this.userAuthenticatedSub = this.authService.getAuthenticatedSub().subscribe(data=>
     {
     this.userAuthenticated = data;
+    localStorage.setItem('auth',`${data}`);
+    console.log('auth');
     
    });
+   
    
    this.adminSub = this.authService.getAdminSub().subscribe(data=>
     {
 this.admin = data;
+console.log('authAdmin');
    });
 
    this.superAdminSub = this.authService.getSuperAdminSub().subscribe(data=>
     {
 this.superAdmin = data;
+console.log('authAsuperAdmin');
    });
 
+   this.log();
 
   }
 
+  log()
+  {
+    
+      if(localStorage.getItem('superadmin') === 'true')
+      {
+        this.userAuthenticated =true;
+        this.admin = true;
+        this.superAdmin = true;
+      }
+      else if(localStorage.getItem('admin') === 'true')
+      {
+        this.userAuthenticated =true;
+        this.admin = true;
+      }
+      else if(localStorage.getItem('auth') === 'true')
+      {
+        this.userAuthenticated =true;
+      }
+
+    
+  }
   
   logout(){
     

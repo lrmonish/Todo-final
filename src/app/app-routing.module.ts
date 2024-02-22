@@ -28,27 +28,26 @@ const routes: Routes = [
     {path: 'deleteUser', component:ModalComponent,canActivate:[RouteGuard]},
     { path: 'accounts', component:AccountsComponent,canActivate:[RouteGuard]},
     {
-      path: 'role',
-      component: RoleComponent,
-      children: [
-       
-        { path: '', redirectTo: 'adminrole', pathMatch: 'full' },
-        {
-          path: 'adminrole',
-          component: AdminroleComponent,
-          canActivate:[RouteGuard],
-          data: { roles: ['admin'] },
-  
-        },
-        {
-          path: 'userrole',
-          component: UsersroleComponent,  
-          canActivate:[RouteGuard],   
-          data: { roles: ['user'] },
-        }
-      ],
-      canActivate:[RouteGuard]
+      path: 'adminrole',
+      component: AdminroleComponent,
+      canActivate:[RouteGuard],
+
     },
+    {
+      path: 'userrole',
+      component: UsersroleComponent,  
+      canActivate:[RouteGuard],   
+    },
+    // {
+    //   path: 'role',
+    //   component: RoleComponent,
+    //   children: [
+       
+    //     // { path: '', redirectTo: 'adminrole', pathMatch: 'full' },
+       
+    //   ],
+    //   canActivate:[RouteGuard]
+    // },
   { path: '**', component: Custom404Component }
 
 ];

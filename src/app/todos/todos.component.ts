@@ -61,9 +61,11 @@ export class TodosComponent implements OnDestroy, DoCheck, AfterViewInit, OnInit
     this.getAdminP();
  
 
-    this.userRoles = this.authService.getUserRole();
+  
+    this.userRoles = localStorage.getItem('admin')
+     let userSA = localStorage.getItem('superadmin')
     
-    if(this.userRoles === 'admin' || this.userRoles === 'superadmin')
+    if(this.userRoles === 'true' || userSA === 'true')
     {
        this.ownerInformation = true;
     }

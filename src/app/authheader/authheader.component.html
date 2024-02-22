@@ -19,8 +19,14 @@
             <a *ngIf="userAuthenticated " routerLink="/deleteUser" routerLinkActive="colour" class="list-group-item list-group-item-action ">
               <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Delete User</span>
             </a>
-            <a *ngIf="userAuthenticated && superAdmin" routerLink="/role" routerLinkActive="colour" class="list-group-item list-group-item-action ">
+            <!-- <a *ngIf="userAuthenticated && superAdmin" routerLink="/userrole" routerLinkActive="colour" class="list-group-item list-group-item-action ">
                 <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Role Manager</span>
+              </a> -->
+              <a *ngIf="userAuthenticated && superAdmin" routerLink="/adminrole" routerLinkActive="colour" class="list-group-item list-group-item-action ">
+                <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Admin Role Manager</span>
+              </a>
+              <a *ngIf="userAuthenticated && superAdmin" routerLink="/userrole" routerLinkActive="colour" class="list-group-item list-group-item-action ">
+                <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span> User Role Manager</span>
               </a>
               <a *ngIf="userAuthenticated && admin" routerLink="/accounts" routerLinkActive="colour" class="list-group-item list-group-item-action ">
                 <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>User Manager</span>
